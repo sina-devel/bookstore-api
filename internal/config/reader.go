@@ -50,7 +50,9 @@ func parseYAML(path string, cfg *Config) (err error) {
 	}
 
 	defer func() {
-		err = file.Close()
+		if e := file.Close(); err == nil {
+			err = e
+		}
 	}()
 
 	decoder := yaml.NewDecoder(file)
