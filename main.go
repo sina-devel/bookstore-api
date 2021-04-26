@@ -5,10 +5,11 @@ import (
 	"log"
 )
 
-func init() {
-	var cfg *config.Config
+var cfg = &config.Config{}
 
-	if err := config.ReadFile(cfg); err != nil {
+func init() {
+
+	if err := config.Parse("build/config/config.yaml", cfg); err != nil {
 		log.Fatalln(err)
 	}
 
