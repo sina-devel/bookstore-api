@@ -13,9 +13,7 @@ const (
 
 func GetLanguage(lang string) Language {
 
-	lang = strings.ToLower(lang)
-
-	switch lang {
+	switch strings.ToLower(lang) {
 	case "en":
 		return EN
 	case "fa":
