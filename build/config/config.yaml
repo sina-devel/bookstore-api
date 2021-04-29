@@ -10,3 +10,11 @@ database:
 
 i18n:
   bundle_path: "./build/i18n/"
+
+logger:
+  max_age: 720h
+  max_size: 20mb
+  filename_pattern: "%Y-%m-%dT%H:%m"
+  rotation_time: "24h"
+  internal_path: "./logs/internal/log"
+  request_path: "./logs/request/log"
