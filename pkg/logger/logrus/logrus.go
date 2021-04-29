@@ -45,8 +45,8 @@ func getLoggerWriter(path, pattern, maxAgeStr, rotationTimeStr, rotationSizeStr 
 	writer, err := rotators.New(
 		path+pattern,
 		rotators.WithLinkName(path),
-		rotators.WithMaxAge(rotationTime),
-		rotators.WithRotationTime(maxAge),
+		rotators.WithMaxAge(maxAge),
+		rotators.WithRotationTime(rotationTime),
 		rotators.WithRotationSize(int64(rotationSize)),
 	)
 	if err != nil {
