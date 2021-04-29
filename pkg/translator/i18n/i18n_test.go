@@ -44,7 +44,7 @@ func TestMessageBundle_Translate(t *testing.T) {
 		},
 	}
 
-	translate, err := New("../../../build/i18n/")
+	translate, err := New("testdata")
 	if err != nil {
 		t.Errorf("New() error : %v", err)
 	}
@@ -87,7 +87,7 @@ func TestMessageBundle_TranslateEn(t *testing.T) {
 		},
 	}
 
-	translate, err := New("./testData/")
+	translate, err := New("testdata")
 	if err != nil {
 		t.Errorf("New() error : %v", err)
 	}
