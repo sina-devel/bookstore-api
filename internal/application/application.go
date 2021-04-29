@@ -8,13 +8,13 @@ import (
 
 func Run(cfg *config.Config) error {
 
-	logger, err := logrus.New(
-		cfg.Log.InternalPath,
-		cfg.Log.FilenamePattern,
-		cfg.Log.MaxAge,
-		cfg.Log.RotationTime,
-		cfg.Log.MaxSize,
-	)
+	logger, err := logrus.New(&logrus.Option{
+		Path:         cfg.Log.InternalPath,
+		Pattern:      cfg.Log.FilenamePattern,
+		MaxAge:       cfg.Log.MaxAge,
+		RotationTime: cfg.Log.RotationTime,
+		RotationSize: cfg.Log.MaxSize,
+	})
 	if err != nil {
 		return err
 	}

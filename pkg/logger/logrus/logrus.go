@@ -1,21 +1,34 @@
 package logrus
 
 import (
+	"errors"
+	"io"
+	"path/filepath"
+
 	"github.com/alecthomas/units"
 	"github.com/kianooshaz/bookstore-api/pkg/logger"
 	rotators "github.com/lestrrat-go/file-rotatelogs"
 	"github.com/sirupsen/logrus"
 	"github.com/xhit/go-str2duration/v2"
-	"io"
 )
+
+var ErrNilOption = errors.New("option can not be nil")
 
 type logBundle struct {
 	logger *logrus.Logger
 }
 
-func New(path, pattern, maxAgeStr, rotationTimeStr, rotationSizeStr string) (logger.Logger, error) {
+type Option struct {
+	Path, Pattern, MaxAge, RotationTime, RotationSize string
+}
+
+func New(opt *Option) (logger.Logger, error) {
+	if opt == nil {
+		return nil, ErrNilOption
+	}
+
 	l := &logBundle{logger: logrus.New()}
-	writer, err := getLoggerWriter(path, pattern, maxAgeStr, rotationTimeStr, rotationSizeStr)
+	writer, err := getLoggerWriter(opt)
 	if err != nil {
 		return nil, err
 	}
@@ -25,35 +38,30 @@ func New(path, pattern, maxAgeStr, rotationTimeStr, rotationSizeStr string) (log
 	return l, nil
 }
 
-func getLoggerWriter(path, pattern, maxAgeStr, rotationTimeStr, rotationSizeStr string) (io.Writer, error) {
+func getLoggerWriter(opt *Option) (io.Writer, error) {
 
-	maxAge, err := str2duration.ParseDuration(maxAgeStr)
+	maxAge, err := str2duration.ParseDuration(opt.MaxAge)
 	if err != nil {
 		return nil, err
 	}
 
-	rotationTime, err := str2duration.ParseDuration(rotationTimeStr)
+	rotationTime, err := str2duration.ParseDuration(opt.RotationTime)
 	if err != nil {
 		return nil, err
 	}
 
-	rotationSize, err := units.ParseBase2Bytes(rotationSizeStr)
+	rotationSize, err := units.ParseBase2Bytes(opt.RotationSize)
 	if err != nil {
 		return nil, err
 	}
 
-	writer, err := rotators.New(
-		path+pattern,
-		rotators.WithLinkName(path),
+	return rotators.New(
+		filepath.Join(opt.Path, opt.Pattern),
+		rotators.WithLinkName(opt.Path),
 		rotators.WithMaxAge(maxAge),
 		rotators.WithRotationTime(rotationTime),
 		rotators.WithRotationSize(int64(rotationSize)),
 	)
-	if err != nil {
-		return nil, err
-	}
-
-	return writer, nil
 }
 
 func (l *logBundle) Info(field *logger.LogField) {

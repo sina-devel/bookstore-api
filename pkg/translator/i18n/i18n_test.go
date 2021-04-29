@@ -1,9 +1,10 @@
 package i18n
 
 import (
+	"testing"
+
 	"github.com/kianooshaz/bookstore-api/pkg/translator"
 	"github.com/kianooshaz/bookstore-api/pkg/translator/messages"
-	"testing"
 )
 
 func TestMessageBundle_Translate(t *testing.T) {
