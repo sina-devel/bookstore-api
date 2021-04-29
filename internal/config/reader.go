@@ -19,7 +19,7 @@ var (
 func Parse(path string, cfg *Config) error {
 
 	switch filepath.Ext(path) {
-	case ".yaml":
+	case ".yaml", ".yml":
 		return parseYAML(path, cfg)
 	default:
 		return ErrUnknownFileExtension
