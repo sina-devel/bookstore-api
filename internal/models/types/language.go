@@ -1,5 +1,7 @@
 package types
 
+import "strings"
+
 type (
 	Language string
 )
@@ -10,6 +12,9 @@ const (
 )
 
 func GetLanguage(lang string) Language {
+
+	lang = strings.ToLower(lang)
+
 	switch lang {
 	case "en":
 		return EN
