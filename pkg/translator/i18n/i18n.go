@@ -1,6 +1,8 @@
 package i18n
 
 import (
+	"path/filepath"
+
 	"github.com/BurntSushi/toml"
 	"github.com/kianooshaz/bookstore-api/pkg/translator"
 	"github.com/nicksnyder/go-i18n/v2/i18n"
@@ -28,14 +30,15 @@ func (m *messageBundle) loadBundle(path string) error {
 
 	m.bundle.RegisterUnmarshalFunc("toml", toml.Unmarshal)
 
-	_, err := m.bundle.LoadMessageFile(path + "message.en.toml")
+	messagefiles, err := filepath.Glob(filepath.Join(path, "*.toml"))
 	if err != nil {
 		return err
 	}
-
-	_, err = m.bundle.LoadMessageFile(path + "message.fa.toml")
-	if err != nil {
-		return err
+	for _, messagefile := range messagefiles {
+		_, err := m.bundle.LoadMessageFile(messagefile)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
