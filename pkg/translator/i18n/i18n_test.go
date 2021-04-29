@@ -7,6 +7,7 @@ import (
 )
 
 func TestMessageBundle_Translate(t *testing.T) {
+
 	type args struct {
 		message  string
 		language types.Language
@@ -60,6 +61,7 @@ func TestMessageBundle_Translate(t *testing.T) {
 }
 
 func TestMessageBundle_TranslateEn(t *testing.T) {
+
 	type args struct {
 		message string
 	}
@@ -85,7 +87,7 @@ func TestMessageBundle_TranslateEn(t *testing.T) {
 		},
 	}
 
-	translate, err := New("../../../build/i18n/")
+	translate, err := New("./testData/")
 	if err != nil {
 		t.Errorf("New() error : %v", err)
 	}
@@ -94,7 +96,7 @@ func TestMessageBundle_TranslateEn(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got := translate.TranslateEn(tt.args.message)
 			if got != tt.want {
-				t.Errorf("Translate() got = %v, want %v", got, tt.want)
+				t.Errorf("TranslateEn() got = %v, want %v", got, tt.want)
 			}
 
 		})
