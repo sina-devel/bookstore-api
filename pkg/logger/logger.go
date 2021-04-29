@@ -2,9 +2,9 @@ package logger
 
 type (
 	Logger interface {
-		Info(field LogField)
-		Warning(field LogField)
-		Error(field LogField)
+		Info(field *LogField)
+		Warning(field *LogField)
+		Error(field *LogField)
 	}
 
 	LogField struct {

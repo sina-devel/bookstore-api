@@ -56,7 +56,7 @@ func getLoggerWriter(path, pattern, maxAgeStr, rotationTimeStr, rotationSizeStr 
 	return writer, nil
 }
 
-func (l *logBundle) Info(field logger.LogField) {
+func (l *logBundle) Info(field *logger.LogField) {
 	l.logger.WithFields(logrus.Fields{
 		"section":  field.Section,
 		"function": field.Function,
@@ -64,7 +64,7 @@ func (l *logBundle) Info(field logger.LogField) {
 	}).Info(field.Message)
 }
 
-func (l *logBundle) Warning(field logger.LogField) {
+func (l *logBundle) Warning(field *logger.LogField) {
 	l.logger.WithFields(logrus.Fields{
 		"section":  field.Section,
 		"function": field.Function,
@@ -72,7 +72,7 @@ func (l *logBundle) Warning(field logger.LogField) {
 	}).Warning(field.Message)
 }
 
-func (l *logBundle) Error(field logger.LogField) {
+func (l *logBundle) Error(field *logger.LogField) {
 	l.logger.WithFields(logrus.Fields{
 		"section":  field.Section,
 		"function": field.Function,
