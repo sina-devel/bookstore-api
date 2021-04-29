@@ -17,9 +17,17 @@ func TestParse(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "parse",
+			name: "parse config.yaml",
 			args: args{
 				path: "testdata/config.yaml",
+				cfg:  &Config{},
+			},
+			wantErr: false,
+		},
+		{
+			name: "parse config.yml",
+			args: args{
+				path: "testdata/config.yml",
 				cfg:  &Config{},
 			},
 			wantErr: false,
