@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/kianooshaz/bookstore-api/internal/application"
 	"github.com/kianooshaz/bookstore-api/internal/config"
 	"log"
 )
@@ -22,4 +23,7 @@ func init() {
 
 func main() {
 
+	if err := application.Run(cfg); err != nil {
+		log.Fatalln(err)
+	}
 }
