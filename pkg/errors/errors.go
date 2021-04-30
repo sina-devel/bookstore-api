@@ -1,6 +1,9 @@
 package errors
 
-import "net/http"
+import (
+	"errors"
+	"net/http"
+)
 
 type (
 	kind uint
@@ -42,7 +45,8 @@ func (e serverError) Error() string {
 }
 
 func HttpError(err error) (string, int) {
-	serverErr, ok := err.(serverError)
+	var serverErr serverError
+	ok := errors.As(err, &serverErr)
 	if !ok {
 		return err.Error(), http.StatusBadRequest
 	}

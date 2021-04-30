@@ -2,6 +2,7 @@ package errors
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"testing"
 )
@@ -20,6 +21,14 @@ func TestHttpError(t *testing.T) {
 			name: "server error",
 			args: args{
 				err: New(KindNotFound, "page not found"),
+			},
+			want1: "page not found",
+			want2: http.StatusNotFound,
+		},
+		{
+			name: "server error",
+			args: args{
+				err: fmt.Errorf("something: %w", New(KindNotFound, "page not found")),
 			},
 			want1: "page not found",
 			want2: http.StatusNotFound,
