@@ -30,7 +30,7 @@ var (
 	}
 )
 
-//New is Constructor of the serverError structure
+//New is Constructor of the errors package
 func New(kind kind, msg string) error {
 	return serverError{
 		kind:    kind,
