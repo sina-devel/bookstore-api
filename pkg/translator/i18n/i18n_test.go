@@ -1,9 +1,10 @@
 package i18n
 
 import (
+	"testing"
+
 	"github.com/kianooshaz/bookstore-api/pkg/translator"
 	"github.com/kianooshaz/bookstore-api/pkg/translator/messages"
-	"testing"
 )
 
 func TestMessageBundle_Translate(t *testing.T) {
@@ -44,7 +45,7 @@ func TestMessageBundle_Translate(t *testing.T) {
 		},
 	}
 
-	translate, err := New("../../../build/i18n/")
+	translate, err := New("testdata")
 	if err != nil {
 		t.Errorf("New() error : %v", err)
 	}
@@ -87,7 +88,7 @@ func TestMessageBundle_TranslateEn(t *testing.T) {
 		},
 	}
 
-	translate, err := New("./testData/")
+	translate, err := New("testdata")
 	if err != nil {
 		t.Errorf("New() error : %v", err)
 	}

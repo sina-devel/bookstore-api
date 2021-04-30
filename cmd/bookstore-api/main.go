@@ -1,9 +1,10 @@
 package main
 
 import (
+	"log"
+
 	"github.com/kianooshaz/bookstore-api/internal/application"
 	"github.com/kianooshaz/bookstore-api/internal/config"
-	"log"
 )
 
 var cfg = &config.Config{}
