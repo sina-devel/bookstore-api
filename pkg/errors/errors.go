@@ -30,6 +30,7 @@ var (
 	}
 )
 
+//New is constructor of the errors package
 func New(kind kind, msg string) error {
 	return serverError{
 		kind:    kind,
@@ -37,10 +38,13 @@ func New(kind kind, msg string) error {
 	}
 }
 
+//Error return message of error
 func (e serverError) Error() string {
 	return e.message
 }
 
+//HttpError convert kind of error to Http status error
+//if error type is not serverError return 400 status code
 func HttpError(err error) (string, int) {
 	serverErr, ok := err.(serverError)
 	if !ok {
