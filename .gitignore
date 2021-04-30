@@ -18,3 +18,5 @@
 .vscode
 log
 log.*
+.yaml
+.env
