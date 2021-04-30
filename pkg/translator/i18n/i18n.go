@@ -44,7 +44,6 @@ func (m *messageBundle) loadBundle(path string) error {
 }
 
 func (m *messageBundle) getLocalized(lang string) *i18n.Localizer {
-
 	return i18n.NewLocalizer(m.bundle, lang)
 }
 
