@@ -13,7 +13,7 @@ type logBundle struct {
 	logger *logrus.Logger
 }
 
-//New is Constructor of the logrus package
+//New is constructor of the logrus package
 func New(path, pattern, maxAgeStr, rotationTimeStr, rotationSizeStr string) (logger.Logger, error) {
 	l := &logBundle{logger: logrus.New()}
 	writer, err := getLoggerWriter(path, pattern, maxAgeStr, rotationTimeStr, rotationSizeStr)
