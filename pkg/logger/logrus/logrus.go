@@ -13,6 +13,7 @@ type logBundle struct {
 	logger *logrus.Logger
 }
 
+//New is Constructor of the logrus package
 func New(path, pattern, maxAgeStr, rotationTimeStr, rotationSizeStr string) (logger.Logger, error) {
 	l := &logBundle{logger: logrus.New()}
 	writer, err := getLoggerWriter(path, pattern, maxAgeStr, rotationTimeStr, rotationSizeStr)
@@ -25,6 +26,8 @@ func New(path, pattern, maxAgeStr, rotationTimeStr, rotationSizeStr string) (log
 	return l, nil
 }
 
+//getLoggerWriter return io.Writer which can create different
+//files with custom names at different time intervals
 func getLoggerWriter(path, pattern, maxAgeStr, rotationTimeStr, rotationSizeStr string) (io.Writer, error) {
 
 	maxAge, err := str2duration.ParseDuration(maxAgeStr)
@@ -56,6 +59,7 @@ func getLoggerWriter(path, pattern, maxAgeStr, rotationTimeStr, rotationSizeStr 
 	return writer, nil
 }
 
+//Info is logger with level info
 func (l *logBundle) Info(field *logger.LogField) {
 	l.logger.WithFields(logrus.Fields{
 		"section":  field.Section,
@@ -64,6 +68,7 @@ func (l *logBundle) Info(field *logger.LogField) {
 	}).Info(field.Message)
 }
 
+//Warning is logger with level warning
 func (l *logBundle) Warning(field *logger.LogField) {
 	l.logger.WithFields(logrus.Fields{
 		"section":  field.Section,
@@ -72,6 +77,7 @@ func (l *logBundle) Warning(field *logger.LogField) {
 	}).Warning(field.Message)
 }
 
+//Error is logger with level error
 func (l *logBundle) Error(field *logger.LogField) {
 	l.logger.WithFields(logrus.Fields{
 		"section":  field.Section,
