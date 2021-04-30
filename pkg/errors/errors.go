@@ -1,6 +1,9 @@
 package errors
 
-import "net/http"
+import (
+	"errors"
+	"net/http"
+)
 
 type (
 	kind uint
@@ -46,7 +49,8 @@ func (e serverError) Error() string {
 //HttpError convert kind of error to Http status error
 //if error type is not serverError return 400 status code
 func HttpError(err error) (string, int) {
-	serverErr, ok := err.(serverError)
+	var serverErr serverError
+	ok := errors.As(err, &serverErr)
 	if !ok {
 		return err.Error(), http.StatusBadRequest
 	}
