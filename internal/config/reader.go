@@ -18,7 +18,6 @@ var (
 
 // Parse parses config file into Config
 func Parse(path string, cfg *Config) error {
-
 	switch filepath.Ext(path) {
 	case ".yaml", ".yml":
 		return parseYAML(path, cfg)
@@ -29,19 +28,16 @@ func Parse(path string, cfg *Config) error {
 
 // ReadEnv reads some configs from environment variables
 func ReadEnv(cfg *Config) error {
-
 	return envconfig.Process("", cfg)
 }
 
 // SetConfig sets cfg in config package
 func SetConfig(c *Config) {
-
 	cfg = c
 }
 
 // parseYAML parses yaml config file into Config
 func parseYAML(path string, cfg *Config) (err error) {
-
 	file, err := os.Open(path)
 	if err != nil {
 		return err

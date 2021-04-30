@@ -24,6 +24,7 @@ type Option struct {
 
 //New is constructor of the logrus package
 func New(opt *Option) (logger.Logger, error) {
+
 	if opt == nil {
 		return nil, ErrNilOption
 	}
@@ -38,11 +39,9 @@ func New(opt *Option) (logger.Logger, error) {
 	return l, nil
 }
 
-
 //getLoggerWriter return io.Writer which can create different
 //files with custom names at different time intervals
 func getLoggerWriter(opt *Option) (io.Writer, error) {
-
 	maxAge, err := str2duration.ParseDuration(opt.MaxAge)
 	if err != nil {
 		return nil, err

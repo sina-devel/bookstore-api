@@ -10,7 +10,6 @@ import (
 var cfg = &config.Config{}
 
 func init() {
-
 	if err := config.Parse("build/config/config.yaml", cfg); err != nil {
 		log.Fatalln(err)
 	}
@@ -23,7 +22,6 @@ func init() {
 }
 
 func main() {
-
 	if err := application.Run(cfg); err != nil {
 		log.Fatalln(err)
 	}

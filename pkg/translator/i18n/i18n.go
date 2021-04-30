@@ -15,7 +15,6 @@ type messageBundle struct {
 
 //New is constructor of the i18n package
 func New(path string) (translator.Translator, error) {
-
 	bundle := &messageBundle{
 		bundle: i18n.NewBundle(language.English),
 	}
@@ -28,15 +27,14 @@ func New(path string) (translator.Translator, error) {
 }
 
 func (m *messageBundle) loadBundle(path string) error {
-
 	m.bundle.RegisterUnmarshalFunc("toml", toml.Unmarshal)
 
-	messagefiles, err := filepath.Glob(filepath.Join(path, "*.toml"))
+	messageFiles, err := filepath.Glob(filepath.Join(path, "*.toml"))
 	if err != nil {
 		return err
 	}
-	for _, messagefile := range messagefiles {
-		_, err := m.bundle.LoadMessageFile(messagefile)
+	for _, messageFile := range messageFiles {
+		_, err := m.bundle.LoadMessageFile(messageFile)
 		if err != nil {
 			return err
 		}
@@ -52,7 +50,6 @@ func (m *messageBundle) getLocalized(lang string) *i18n.Localizer {
 
 //Translate is a translator whose translates keywords based on the input language
 func (m *messageBundle) Translate(lang translator.Language, key string) string {
-
 	message, err := m.getLocalized(string(lang)).Localize(&i18n.LocalizeConfig{MessageID: key})
 	if err != nil {
 		return key
@@ -63,7 +60,6 @@ func (m *messageBundle) Translate(lang translator.Language, key string) string {
 
 //TranslateEn is a translator whose translates keywords into English
 func (m *messageBundle) TranslateEn(key string) string {
-
 	message, err := m.getLocalized("en").Localize(&i18n.LocalizeConfig{MessageID: key})
 	if err != nil {
 		return key

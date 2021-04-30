@@ -11,6 +11,7 @@ func TestHttpError(t *testing.T) {
 	type args struct {
 		err error
 	}
+
 	tests := []struct {
 		name  string
 		args  args
@@ -42,6 +43,7 @@ func TestHttpError(t *testing.T) {
 			want2: http.StatusBadRequest,
 		},
 	}
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got1, got2 := HttpError(tt.args.err)

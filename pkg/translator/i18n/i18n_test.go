@@ -8,7 +8,6 @@ import (
 )
 
 func TestMessageBundle_Translate(t *testing.T) {
-
 	type args struct {
 		message  string
 		language translator.Language
@@ -62,7 +61,6 @@ func TestMessageBundle_Translate(t *testing.T) {
 }
 
 func TestMessageBundle_TranslateEn(t *testing.T) {
-
 	type args struct {
 		message string
 	}

@@ -50,6 +50,7 @@ func (e serverError) Error() string {
 //if error type is not serverError return 400 status code
 func HttpError(err error) (string, int) {
 	var serverErr serverError
+
 	ok := errors.As(err, &serverErr)
 	if !ok {
 		return err.Error(), http.StatusBadRequest

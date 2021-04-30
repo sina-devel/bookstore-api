@@ -5,7 +5,6 @@ import (
 )
 
 func TestParse(t *testing.T) {
-
 	type args struct {
 		path string
 		cfg  *Config

@@ -7,7 +7,6 @@ import (
 )
 
 func Run(cfg *config.Config) error {
-
 	logger, err := logrus.New(&logrus.Option{
 		Path:         cfg.Log.InternalPath,
 		Pattern:      cfg.Log.FilenamePattern,
