@@ -1,0 +1,1 @@
+To run the program, you need to change the name of the config.yaml.example file to config.yaml
