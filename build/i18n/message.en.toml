@@ -1,7 +1,8 @@
-NoUserFound = "no user found"
-
 # invalid
 InvalidWalletStatus = "invalid wallet status"
 InvalidUserStatus = "invalid user status"
 InvalidGender = "invalid gender"
 InvalidRole = "invalid role"
+
+# no found
+NoUserFound = "no user found"
