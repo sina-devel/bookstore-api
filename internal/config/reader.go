@@ -2,6 +2,7 @@ package config
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -17,7 +18,13 @@ var (
 )
 
 // Parse parses config file into Config
-func Parse(path string, cfg *Config) error {
+func Parse(path string, cfg *Config) (err error) {
+	defer func() {
+		if err != nil {
+			err = fmt.Errorf("parse config: %w", err)
+		}
+	}()
+
 	switch filepath.Ext(path) {
 	case ".yaml", ".yml":
 		return parseYAML(path, cfg)
