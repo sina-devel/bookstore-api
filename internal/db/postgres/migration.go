@@ -10,11 +10,11 @@ import (
 func (d *database) migration() error {
 	if err := d.db.AutoMigrate(
 		&models.User{},
-		&models.Picture{},
+		&models.Book{},
 		&models.Wallet{},
 		&models.Category{},
 		&models.Comment{},
-		&models.Book{},
+		&models.Picture{},
 	); err != nil {
 		d.logger.Error(&log.Field{
 			Section:  "postgres.migration",

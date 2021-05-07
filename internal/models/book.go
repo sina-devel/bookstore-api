@@ -10,9 +10,9 @@ type (
 		File          string
 		SellerID      uint
 		CategoryID    uint
-		Comments      []Comment
+		Comments      []Comment `gorm:"foreignKey:BookID"`
 		DownloadCount uint
-		Pictures      []Picture
+		Pictures      []Picture `gorm:"foreignKey:BookID"`
 		Status        types.BookStatus
 		Price         types.Price
 	}
