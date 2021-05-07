@@ -16,7 +16,6 @@
 
 *.idea
 .vscode
-log
-log.*
 .yaml
 .env
+.logs
