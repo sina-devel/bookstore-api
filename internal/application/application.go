@@ -2,8 +2,9 @@ package application
 
 import (
 	"github.com/kianooshaz/bookstore-api/internal/config"
-	"github.com/kianooshaz/bookstore-api/pkg/logger/logrus"
-	"github.com/kianooshaz/bookstore-api/pkg/translator/i18n"
+	"github.com/kianooshaz/bookstore-api/internal/db/postgres"
+	"github.com/kianooshaz/bookstore-api/pkg/log/logrus"
+	"github.com/kianooshaz/bookstore-api/pkg/translate/i18n"
 )
 
 func Run(cfg *config.Config) error {
@@ -17,13 +18,15 @@ func Run(cfg *config.Config) error {
 	if err != nil {
 		return err
 	}
-	_ = logger
 
 	translator, err := i18n.New(cfg.I18n.BundlePath)
 	if err != nil {
 		return err
 	}
-	_ = translator
+
+	repository, err := postgres.New(cfg, translator, logger)
+
+	_ = repository
 
 	return nil
 }

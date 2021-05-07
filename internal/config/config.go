@@ -8,14 +8,15 @@ type (
 	}
 
 	Database struct {
-		Username string `yaml:"username"`
-		Password string `yaml:"password"`
-		DBName   string `yaml:"db_name"`
-		Host     string `yaml:"host"`
-		Port     string `yaml:"port"`
-		SSLMode  string `yaml:"ssl_mode"`
-		TimeZone string `yaml:"time_zone"`
-		Charset  string `yaml:"charset"`
+		Username  string `yaml:"username"`
+		Password  string `yaml:"password"`
+		DBName    string `yaml:"db_name"`
+		Host      string `yaml:"host"`
+		Port      string `yaml:"port"`
+		SSLMode   string `yaml:"ssl_mode"`
+		TimeZone  string `yaml:"time_zone"`
+		Charset   string `yaml:"charset"`
+		Migration bool   `yaml:"migration"`
 	}
 
 	I18n struct {
