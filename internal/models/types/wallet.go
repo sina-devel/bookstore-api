@@ -3,7 +3,7 @@ package types
 import (
 	"fmt"
 	"github.com/kianooshaz/bookstore-api/pkg/errors"
-	"github.com/kianooshaz/bookstore-api/pkg/translator/messages"
+	"github.com/kianooshaz/bookstore-api/pkg/translate/messages"
 )
 
 type (
@@ -19,9 +19,9 @@ const (
 
 var (
 	walletStatus = map[WalletStatus]string{
-		WalletOpen:     "Open",
-		WalletClose:    "Close",
-		WalletInactive: "Inactive",
+		WalletOpen:     "open",
+		WalletClose:    "close",
+		WalletInactive: "inactive",
 	}
 )
 

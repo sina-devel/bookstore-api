@@ -3,7 +3,7 @@ package types
 import (
 	"fmt"
 	"github.com/kianooshaz/bookstore-api/pkg/errors"
-	"github.com/kianooshaz/bookstore-api/pkg/translator/messages"
+	"github.com/kianooshaz/bookstore-api/pkg/translate/messages"
 )
 
 type (
@@ -34,22 +34,22 @@ const (
 
 var (
 	userStatus = map[UserStatus]string{
-		UserActive:   "Active",
-		UserInactive: "Inactive",
-		UserBan:      "Ban",
+		UserActive:   "active",
+		UserInactive: "inactive",
+		UserBan:      "ban",
 	}
 
 	gender = map[Gender]string{
-		Male:   "Male",
-		Female: "Female",
-		More:   "More",
+		Male:   "male",
+		Female: "female",
+		More:   "more",
 	}
 
 	role = map[Role]string{
-		Basic:   "Basic",
-		Seller:  "Seller",
-		Manager: "Manager",
-		Admin:   "Admin",
+		Basic:   "basic",
+		Seller:  "seller",
+		Manager: "manager",
+		Admin:   "admin",
 	}
 )
 
