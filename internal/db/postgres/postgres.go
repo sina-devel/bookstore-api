@@ -31,7 +31,7 @@ func New(cfg *config.Config, translator translate.Translator, logger log.Logger)
 		return nil, err
 	}
 
-	if db.cfg.Database.Migration {
+	if cfg.Database.Migration {
 		if err := db.migration(); err != nil {
 			return nil, err
 		}
@@ -39,9 +39,9 @@ func New(cfg *config.Config, translator translate.Translator, logger log.Logger)
 
 	return &repository.Repository{
 		DB:         db.db,
-		Cfg:        db.cfg,
-		Translator: db.translator,
-		Logger:     db.logger,
+		Cfg:        cfg,
+		Translator: translator,
+		Logger:     logger,
 	}, nil
 }
 
