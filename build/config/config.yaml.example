@@ -7,6 +7,7 @@ database:
   ssl_mode: "disable"
   time_zone: "Asia/Tehran"
   charset: "utf8mb4"
+  migration: true
 
 i18n:
   bundle_path: "./build/i18n/"
