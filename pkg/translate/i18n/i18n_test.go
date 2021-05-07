@@ -3,14 +3,14 @@ package i18n
 import (
 	"testing"
 
-	"github.com/kianooshaz/bookstore-api/pkg/translator"
-	"github.com/kianooshaz/bookstore-api/pkg/translator/messages"
+	"github.com/kianooshaz/bookstore-api/pkg/translate"
+	"github.com/kianooshaz/bookstore-api/pkg/translate/messages"
 )
 
 func TestMessageBundle_Translate(t *testing.T) {
 	type args struct {
 		message  string
-		language translator.Language
+		language translate.Language
 	}
 
 	tests := []struct {
@@ -22,7 +22,7 @@ func TestMessageBundle_Translate(t *testing.T) {
 			name: "translate farsi",
 			args: args{
 				message:  messages.NoUserFound,
-				language: translator.GetLanguage("fa"),
+				language: translate.GetLanguage("fa"),
 			},
 			want: "کاربر مورد نظر یافت نشد",
 		},
@@ -30,7 +30,7 @@ func TestMessageBundle_Translate(t *testing.T) {
 			name: "translate english",
 			args: args{
 				message:  messages.NoUserFound,
-				language: translator.GetLanguage("en"),
+				language: translate.GetLanguage("en"),
 			},
 			want: "no user found",
 		},
@@ -38,7 +38,7 @@ func TestMessageBundle_Translate(t *testing.T) {
 			name: "message key not found",
 			args: args{
 				message:  "NoKeyFound",
-				language: translator.GetLanguage("en"),
+				language: translate.GetLanguage("en"),
 			},
 			want: "NoKeyFound",
 		},

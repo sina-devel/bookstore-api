@@ -1,8 +1,12 @@
 # invalid
 InvalidWalletStatus = "invalid wallet status"
 InvalidUserStatus = "invalid user status"
+InvalidBookStatus = "invalid book status"
 InvalidGender = "invalid gender"
 InvalidRole = "invalid role"
 
 # no found
 NoUserFound = "no user found"
+
+# general
+DBError = "error is exist"

@@ -1,8 +1,12 @@
 # invalid
 InvalidWalletStatus = "وضعیت کیف پول نامعتبر است"
 InvalidUserStatus = "وضعیت کاربر نامعتبر است"
+InvalidBookStatus = "وضعیت کتاب نامعتبر است"
 InvalidGender = "جنسیت نامعتبر است"
 InvalidRole = "نقش نامعتبر است"
 
 # no found
 NoUserFound = "کاربر مورد نظر یافت نشد"
+
+# general
+DBError = "خطایی وجود دارد"

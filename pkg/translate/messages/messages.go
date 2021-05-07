@@ -1,9 +1,13 @@
 package messages
 
 const (
-	NoUserFound         = "NoUserFound"
 	InvalidWalletStatus = "InvalidWalletStatus"
 	InvalidUserStatus   = "InvalidUserStatus"
+	InvalidBookStatus   = "InvalidBookStatus"
 	InvalidGender       = "InvalidGender"
 	InvalidRole         = "InvalidRole"
+
+	NoUserFound = "NoUserFound"
+
+	DBError = "DBError"
 )

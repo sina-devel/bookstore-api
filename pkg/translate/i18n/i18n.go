@@ -4,7 +4,7 @@ import (
 	"path/filepath"
 
 	"github.com/BurntSushi/toml"
-	"github.com/kianooshaz/bookstore-api/pkg/translator"
+	"github.com/kianooshaz/bookstore-api/pkg/translate"
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 	"golang.org/x/text/language"
 )
@@ -14,7 +14,7 @@ type messageBundle struct {
 }
 
 //New is constructor of the i18n package
-func New(path string) (translator.Translator, error) {
+func New(path string) (translate.Translator, error) {
 	bundle := &messageBundle{
 		bundle: i18n.NewBundle(language.English),
 	}
@@ -47,8 +47,8 @@ func (m *messageBundle) getLocalized(lang string) *i18n.Localizer {
 	return i18n.NewLocalizer(m.bundle, lang)
 }
 
-//Translate is a translator whose translates keywords based on the input language
-func (m *messageBundle) Translate(lang translator.Language, key string) string {
+//Translate is a translate whose translates keywords based on the input language
+func (m *messageBundle) Translate(lang translate.Language, key string) string {
 	message, err := m.getLocalized(string(lang)).Localize(&i18n.LocalizeConfig{MessageID: key})
 	if err != nil {
 		return key
@@ -57,7 +57,7 @@ func (m *messageBundle) Translate(lang translator.Language, key string) string {
 	return message
 }
 
-//TranslateEn is a translator whose translates keywords into English
+//TranslateEn is a translate whose translates keywords into English
 func (m *messageBundle) TranslateEn(key string) string {
 	message, err := m.getLocalized("en").Localize(&i18n.LocalizeConfig{MessageID: key})
 	if err != nil {
