@@ -4,7 +4,7 @@ type (
 	Config struct {
 		Database Database `yaml:"database"`
 		I18n     I18n     `yaml:"i18n"`
-		Log      Log      `yaml:"log"`
+		Logger   Logger   `yaml:"logger"`
 	}
 
 	Database struct {
@@ -23,7 +23,7 @@ type (
 		BundlePath string `yaml:"bundle_path"`
 	}
 
-	Log struct {
+	Logger struct {
 		MaxAge          string `yaml:"max_age"`
 		MaxSize         string `yaml:"max_size"`
 		FilenamePattern string `yaml:"filename_pattern"`
