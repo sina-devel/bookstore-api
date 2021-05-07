@@ -25,6 +25,9 @@ func Run(cfg *config.Config) error {
 	}
 
 	repository, err := postgres.New(cfg, translator, logger)
+	if err != nil {
+		return err
+	}
 
 	_ = repository
 
