@@ -10,7 +10,7 @@ type (
 	Field struct {
 		Section  string
 		Function string
-		Params   interface{}
+		Params   map[string]interface{}
 		Message  string
 	}
 )
