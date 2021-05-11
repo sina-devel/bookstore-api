@@ -15,7 +15,7 @@ func (r *Repository) GetUserByID(id uint) (*models.User, error) {
 		r.Logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "GetUserByID",
-			Params:   struct{ userID uint }{id},
+			Params:   map[string]interface{}{"user_id": id},
 			Message:  err.Error(),
 		})
 
@@ -32,11 +32,11 @@ func (r *Repository) GetUserByID(id uint) (*models.User, error) {
 func (r *Repository) GetUserByUsername(username string) (*models.User, error) {
 	user := new(models.User)
 
-	if err := r.DB.Where("username = ?", user).First(user).Error; err != nil {
+	if err := r.DB.Where("username = ?", username).First(user).Error; err != nil {
 		r.Logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "GetUserByUsername",
-			Params:   struct{ username string }{username},
+			Params:   map[string]interface{}{"username": username},
 			Message:  err.Error(),
 		})
 
@@ -72,7 +72,7 @@ func (r *Repository) DeleteUserByID(id uint) error {
 		r.Logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "DeleteUserByID",
-			Params:   struct{ id uint }{id},
+			Params:   map[string]interface{}{"user_id": id},
 			Message:  err.Error(),
 		})
 
@@ -83,7 +83,7 @@ func (r *Repository) DeleteUserByID(id uint) error {
 		r.Logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "DeleteUserByID",
-			Params:   struct{ id uint }{id},
+			Params:   map[string]interface{}{"user_id": id},
 			Message:  r.Translator.TranslateEn(messages.UserNotFound),
 		})
 
@@ -134,11 +134,8 @@ func (r *Repository) AddUser(user *models.User) (*models.User, *models.Wallet, e
 		r.Logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "AddUser",
-			Params: struct {
-				user   *models.User
-				wallet *models.Wallet
-			}{user, wallet},
-			Message: err.Error(),
+			Params:   map[string]interface{}{"user": user, "wallet": wallet},
+			Message:  err.Error(),
 		})
 
 		return nil, nil, errors.New(errors.KindUnexpected, messages.DBError)
