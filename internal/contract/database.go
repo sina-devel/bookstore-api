@@ -3,7 +3,7 @@ package contract
 import "github.com/kianooshaz/bookstore-api/internal/models"
 
 type (
-	Repository interface {
+	MainRepository interface {
 		UserRepository
 	}
 

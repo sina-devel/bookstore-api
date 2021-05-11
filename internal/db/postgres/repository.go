@@ -15,7 +15,7 @@ type repository struct {
 	logger     log.Logger
 }
 
-func New(cfg *config.Config, translator translate.Translator, logger log.Logger) (contract.Repository, error) {
+func New(cfg *config.Config, translator translate.Translator, logger log.Logger) (contract.MainRepository, error) {
 	repo := &repository{
 		cfg:        cfg,
 		translator: translator,

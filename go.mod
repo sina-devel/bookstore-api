@@ -5,6 +5,7 @@ go 1.16
 require (
 	github.com/BurntSushi/toml v0.3.1
 	github.com/alecthomas/units v0.0.0-20210208195552-ff826a37aa15
+	github.com/golang/mock v1.5.0
 	github.com/jackc/pgproto3/v2 v2.0.7 // indirect
 	github.com/jonboulle/clockwork v0.2.2 // indirect
 	github.com/kelseyhightower/envconfig v1.4.0
