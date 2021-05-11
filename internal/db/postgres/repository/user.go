@@ -11,7 +11,7 @@ import (
 func (r *Repository) GetUserByID(id uint) (*models.User, error) {
 	user := new(models.User)
 
-	if err := r.DB.First(user, id).Error; err != nil {
+	if err := r.DB.Model(&models.User{}).Where("id = ?", id).First(user).Error; err != nil {
 		r.Logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "GetUserByID",
@@ -32,7 +32,7 @@ func (r *Repository) GetUserByID(id uint) (*models.User, error) {
 func (r *Repository) GetUserByUsername(username string) (*models.User, error) {
 	user := new(models.User)
 
-	if err := r.DB.Where("username = ?", username).First(user).Error; err != nil {
+	if err := r.DB.Model(&models.User{}).Where("username = ?", username).First(user).Error; err != nil {
 		r.Logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "GetUserByUsername",
@@ -51,11 +51,11 @@ func (r *Repository) GetUserByUsername(username string) (*models.User, error) {
 }
 
 func (r *Repository) UpdateUser(user *models.User) error {
-	if err := r.DB.Save(user).Error; err != nil {
+	if err := r.DB.Model(&models.User{}).Save(user).Error; err != nil {
 		r.Logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "UpdateUser",
-			Params:   user,
+			Params:   map[string]interface{}{"user": user},
 			Message:  err.Error(),
 		})
 
@@ -96,14 +96,14 @@ func (r *Repository) DeleteUserByID(id uint) error {
 func (r *Repository) AddUser(user *models.User) (*models.User, *models.Wallet, error) {
 	tx := r.DB.Begin()
 
-	res := tx.Create(user)
+	res := tx.Model(&models.User{}).Create(user)
 	if err := res.Error; err != nil {
 		tx.Rollback()
 
 		r.Logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "AddUser",
-			Params:   user,
+			Params:   map[string]interface{}{"user": user},
 			Message:  err.Error(),
 		})
 
@@ -116,14 +116,14 @@ func (r *Repository) AddUser(user *models.User) (*models.User, *models.Wallet, e
 		Status:  types.WalletOpen,
 	}
 
-	res = tx.Create(wallet)
+	res = tx.Model(&models.Wallet{}).Create(wallet)
 	if err := res.Error; err != nil {
 		tx.Rollback()
 
 		r.Logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "AddUser",
-			Params:   wallet,
+			Params:   map[string]interface{}{"wallet": wallet},
 			Message:  err.Error(),
 		})
 
