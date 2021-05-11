@@ -66,7 +66,7 @@ func (r *Repository) UpdateUser(user *models.User) error {
 }
 
 func (r *Repository) DeleteUserByID(id uint) error {
-	res := r.DB.Model(models.User{}).Where("id = ?", id).Delete(&models.User{})
+	res := r.DB.Model(&models.User{}).Where("id = ?", id).Delete(&models.User{})
 
 	if err := res.Error; err != nil {
 		r.Logger.Error(&log.Field{
