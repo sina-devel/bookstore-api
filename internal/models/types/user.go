@@ -2,7 +2,7 @@ package types
 
 import (
 	"fmt"
-	"github.com/kianooshaz/bookstore-api/pkg/errors"
+	"github.com/kianooshaz/bookstore-api/pkg/derrors"
 	"github.com/kianooshaz/bookstore-api/pkg/translate/messages"
 )
 
@@ -73,7 +73,7 @@ func (u *UserStatus) UnmarshalText(b []byte) error {
 		}
 	}
 
-	return errors.New(errors.KindInvalid, messages.InvalidUserStatus)
+	return derrors.New(derrors.KindInvalid, messages.InvalidUserStatus)
 }
 
 func (g Gender) String() string {
@@ -96,7 +96,7 @@ func (g *Gender) UnmarshalText(b []byte) error {
 		}
 	}
 
-	return errors.New(errors.KindInvalid, messages.InvalidGender)
+	return derrors.New(derrors.KindInvalid, messages.InvalidGender)
 }
 
 func (r Role) String() string {
@@ -119,5 +119,5 @@ func (r *Role) UnmarshalText(b []byte) error {
 		}
 	}
 
-	return errors.New(errors.KindInvalid, messages.InvalidRole)
+	return derrors.New(derrors.KindInvalid, messages.InvalidRole)
 }

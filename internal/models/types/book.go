@@ -2,7 +2,7 @@ package types
 
 import (
 	"fmt"
-	"github.com/kianooshaz/bookstore-api/pkg/errors"
+	"github.com/kianooshaz/bookstore-api/pkg/derrors"
 	"github.com/kianooshaz/bookstore-api/pkg/translate/messages"
 )
 
@@ -47,5 +47,5 @@ func (b *BookStatus) UnmarshalText(by []byte) error {
 		}
 	}
 
-	return errors.New(errors.KindInvalid, messages.InvalidBookStatus)
+	return derrors.New(derrors.KindInvalid, messages.InvalidBookStatus)
 }
