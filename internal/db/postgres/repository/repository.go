@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"errors"
 	"github.com/kianooshaz/bookstore-api/internal/config"
 	"github.com/kianooshaz/bookstore-api/pkg/log"
 	"github.com/kianooshaz/bookstore-api/pkg/translate"
@@ -12,4 +13,8 @@ type Repository struct {
 	Cfg        *config.Config
 	Translator translate.Translator
 	Logger     log.Logger
+}
+
+func IsErrorNotFound(err error) bool {
+	return errors.Is(err, gorm.ErrRecordNotFound)
 }

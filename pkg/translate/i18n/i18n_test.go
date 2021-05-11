@@ -21,7 +21,7 @@ func TestMessageBundle_Translate(t *testing.T) {
 		{
 			name: "translate farsi",
 			args: args{
-				message:  messages.NoUserFound,
+				message:  messages.UserNotFound,
 				language: translate.GetLanguage("fa"),
 			},
 			want: "کاربر مورد نظر یافت نشد",
@@ -29,7 +29,7 @@ func TestMessageBundle_Translate(t *testing.T) {
 		{
 			name: "translate english",
 			args: args{
-				message:  messages.NoUserFound,
+				message:  messages.UserNotFound,
 				language: translate.GetLanguage("en"),
 			},
 			want: "no user found",
@@ -73,7 +73,7 @@ func TestMessageBundle_TranslateEn(t *testing.T) {
 		{
 			name: "translate",
 			args: args{
-				message: messages.NoUserFound,
+				message: messages.UserNotFound,
 			},
 			want: "no user found",
 		},

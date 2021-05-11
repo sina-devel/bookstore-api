@@ -7,6 +7,6 @@ type (
 		Base
 		UserID  uint
 		Balance types.Price
-		status  types.WalletStatus
+		Status  types.WalletStatus
 	}
 )

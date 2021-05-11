@@ -8,6 +8,10 @@ type (
 	}
 
 	UserRepository interface {
-		CreateUser(user *models.User) error
+		GetUserByID(id uint) (*models.User, error)
+		GetUserByUsername(username string) (*models.User, error)
+		UpdateUser(user *models.User) error
+		DeleteUserByID(id uint) error
+		AddUser(user *models.User) (*models.User, *models.Wallet, error)
 	}
 )

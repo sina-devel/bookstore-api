@@ -6,7 +6,7 @@ InvalidGender = "invalid gender"
 InvalidRole = "invalid role"
 
 # no found
-NoUserFound = "no user found"
+UserNotFound = "user not found"
 
 # general
 DBError = "error is exist"

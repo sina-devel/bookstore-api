@@ -6,7 +6,7 @@ InvalidGender = "جنسیت نامعتبر است"
 InvalidRole = "نقش نامعتبر است"
 
 # no found
-NoUserFound = "کاربر مورد نظر یافت نشد"
+UserNotFound = "کاربر مورد نظر یافت نشد"
 
 # general
 DBError = "خطایی وجود دارد"
