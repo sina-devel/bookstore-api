@@ -57,7 +57,7 @@ func setupTest() {
 	}
 
 	logger, err := logrus.New(&logrus.Option{
-		Path:         "./logs/internal/log",
+		Path:         "./logs/test",
 		Pattern:      "%Y-%m-%dT%H:%M",
 		MaxAge:       "720h",
 		RotationTime: "24h",

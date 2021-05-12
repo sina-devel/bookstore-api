@@ -33,6 +33,5 @@ type (
 		FilenamePattern string `yaml:"filename_pattern"`
 		RotationTime    string `yaml:"rotation_time"`
 		InternalPath    string `yaml:"internal_path"`
-		RequestPath     string `yaml:"request_path"`
 	}
 )

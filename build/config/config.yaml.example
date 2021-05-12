@@ -18,5 +18,4 @@ logger:
   max_size: 20MB
   filename_pattern: "%Y-%m-%dT%H:%M"
   rotation_time: "24h"
-  internal_path: "./logs/internal/log"
-  request_path: "./logs/request/log"
+  internal_path: "./logs/internal"
