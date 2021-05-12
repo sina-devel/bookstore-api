@@ -26,7 +26,7 @@ func New(cfg *config.Config, translator translate.Translator, logger log.Logger)
 		return nil, err
 	}
 
-	if cfg.Database.Migration {
+	if cfg.Database.Postgres.Migration {
 		if err := repo.migration(); err != nil {
 			return nil, err
 		}

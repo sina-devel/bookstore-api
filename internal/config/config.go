@@ -8,6 +8,10 @@ type (
 	}
 
 	Database struct {
+		Postgres Postgres `yaml:"postgres"`
+	}
+
+	Postgres struct {
 		Username  string `yaml:"username"`
 		Password  string `yaml:"password"`
 		DBName    string `yaml:"db_name"`

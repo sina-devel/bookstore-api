@@ -1,8 +1,8 @@
 package postgres
 
 import (
+	"fmt"
 	"github.com/kianooshaz/bookstore-api/internal/models"
-	"github.com/kianooshaz/bookstore-api/internal/models/types"
 	"github.com/kianooshaz/bookstore-api/pkg/derrors"
 	"github.com/kianooshaz/bookstore-api/pkg/log"
 	"github.com/kianooshaz/bookstore-api/pkg/translate/messages"
@@ -93,12 +93,14 @@ func (r *repository) DeleteUserByID(id uint) error {
 	return nil
 }
 
-func (r *repository) AddUser(user *models.User) (*models.User, *models.Wallet, error) {
+func (r *repository) AddUser(user *models.User, wallet *models.Wallet) error {
 	tx := r.db.Begin()
 
 	res := tx.Model(&models.User{}).Create(user)
 	if err := res.Error; err != nil {
 		tx.Rollback()
+
+		fmt.Println(user)
 
 		r.logger.Error(&log.Field{
 			Section:  "repository.user",
@@ -107,14 +109,10 @@ func (r *repository) AddUser(user *models.User) (*models.User, *models.Wallet, e
 			Message:  err.Error(),
 		})
 
-		return nil, nil, derrors.New(derrors.KindUnexpected, messages.DBError)
+		return derrors.New(derrors.KindUnexpected, messages.DBError)
 	}
 
-	wallet := &models.Wallet{
-		UserID:  user.ID,
-		Balance: 0,
-		Status:  types.WalletOpen,
-	}
+	wallet.ID = user.ID
 
 	res = tx.Model(&models.Wallet{}).Create(wallet)
 	if err := res.Error; err != nil {
@@ -127,7 +125,7 @@ func (r *repository) AddUser(user *models.User) (*models.User, *models.Wallet, e
 			Message:  err.Error(),
 		})
 
-		return nil, nil, derrors.New(derrors.KindUnexpected, messages.DBError)
+		return derrors.New(derrors.KindUnexpected, messages.DBError)
 	}
 
 	if err := tx.Commit().Error; err != nil {
@@ -138,8 +136,8 @@ func (r *repository) AddUser(user *models.User) (*models.User, *models.Wallet, e
 			Message:  err.Error(),
 		})
 
-		return nil, nil, derrors.New(derrors.KindUnexpected, messages.DBError)
+		return derrors.New(derrors.KindUnexpected, messages.DBError)
 	}
 
-	return user, wallet, nil
+	return nil
 }
