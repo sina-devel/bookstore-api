@@ -50,9 +50,7 @@ func (r *repository) GetUserByUsername(username string) (*models.User, error) {
 }
 
 func (r *repository) UpdateUser(user *models.User) error {
-	res := r.db.Model(&models.User{}).Where("id = ?", user.ID).Save(user)
-
-	if err := res.Error; err != nil {
+	if err := r.db.Model(&models.User{}).First(&models.User{}, user.ID).Error; err != nil {
 		r.logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "UpdateUser",
@@ -60,15 +58,19 @@ func (r *repository) UpdateUser(user *models.User) error {
 			Message:  err.Error(),
 		})
 
+		if isErrorNotFound(err) {
+			return derrors.New(derrors.KindNotFound, messages.UserNotFound)
+		}
+
 		return derrors.New(derrors.KindUnexpected, messages.DBError)
 	}
 
-	if res.RowsAffected != 1 {
+	if err := r.db.Model(&models.User{}).Where("id = ?", user.ID).Save(user).Error; err != nil {
 		r.logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "UpdateUser",
 			Params:   map[string]interface{}{"user": user},
-			Message:  r.translator.TranslateEn(messages.DBError),
+			Message:  err.Error(),
 		})
 
 		return derrors.New(derrors.KindUnexpected, messages.DBError)

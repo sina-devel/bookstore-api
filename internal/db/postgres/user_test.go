@@ -107,7 +107,7 @@ func TestUpdateUser(t *testing.T) {
 	})
 
 	user.FirstName = random.String(5)
-	user2.ID = uint(rand.Intn(5))
+	user2.ID = uint(rand.Uint32())
 
 	tests := []struct {
 		name string
@@ -122,7 +122,7 @@ func TestUpdateUser(t *testing.T) {
 		{
 			name: "user not found",
 			user: user2,
-			want: derrors.New(derrors.KindUnexpected, messages.UserNotFound),
+			want: derrors.New(derrors.KindNotFound, messages.UserNotFound),
 		},
 	}
 
@@ -147,7 +147,7 @@ func TestDeleteUserByID(t *testing.T) {
 		}
 	})
 
-	user2.ID = uint(rand.Intn(4))
+	user2.ID = uint(rand.Uint32())
 
 	tests := []struct {
 		name string
