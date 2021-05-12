@@ -18,4 +18,4 @@
 .vscode
 .yaml
 .env
-.logs
+logs
