@@ -122,7 +122,7 @@ func (r *repository) AddUser(user *models.User, wallet *models.Wallet) error {
 		return derrors.New(derrors.KindUnexpected, messages.DBError)
 	}
 
-	wallet.ID = user.ID
+	wallet.UserID = user.ID
 
 	res = tx.Model(&models.Wallet{}).Create(wallet)
 	if err := res.Error; err != nil {
