@@ -48,18 +48,18 @@ func (mr *MockMainRepositoryMockRecorder) AddUser(user, wallet interface{}) *gom
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddUser", reflect.TypeOf((*MockMainRepository)(nil).AddUser), user, wallet)
 }
 
-// DeleteUserByID mocks base method.
-func (m *MockMainRepository) DeleteUserByID(id uint) error {
+// DeleteUser mocks base method.
+func (m *MockMainRepository) DeleteUser(user *models.User) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteUserByID", id)
+	ret := m.ctrl.Call(m, "DeleteUser", user)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
-// DeleteUserByID indicates an expected call of DeleteUserByID.
-func (mr *MockMainRepositoryMockRecorder) DeleteUserByID(id interface{}) *gomock.Call {
+// DeleteUser indicates an expected call of DeleteUser.
+func (mr *MockMainRepositoryMockRecorder) DeleteUser(user interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteUserByID", reflect.TypeOf((*MockMainRepository)(nil).DeleteUserByID), id)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteUser", reflect.TypeOf((*MockMainRepository)(nil).DeleteUser), user)
 }
 
 // GetUserByID mocks base method.
@@ -143,18 +143,18 @@ func (mr *MockUserRepositoryMockRecorder) AddUser(user, wallet interface{}) *gom
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddUser", reflect.TypeOf((*MockUserRepository)(nil).AddUser), user, wallet)
 }
 
-// DeleteUserByID mocks base method.
-func (m *MockUserRepository) DeleteUserByID(id uint) error {
+// DeleteUser mocks base method.
+func (m *MockUserRepository) DeleteUser(user *models.User) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteUserByID", id)
+	ret := m.ctrl.Call(m, "DeleteUser", user)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
-// DeleteUserByID indicates an expected call of DeleteUserByID.
-func (mr *MockUserRepositoryMockRecorder) DeleteUserByID(id interface{}) *gomock.Call {
+// DeleteUser indicates an expected call of DeleteUser.
+func (mr *MockUserRepositoryMockRecorder) DeleteUser(user interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteUserByID", reflect.TypeOf((*MockUserRepository)(nil).DeleteUserByID), id)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteUser", reflect.TypeOf((*MockUserRepository)(nil).DeleteUser), user)
 }
 
 // GetUserByID mocks base method.

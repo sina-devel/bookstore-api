@@ -40,7 +40,18 @@ func setupTest() {
 
 	}
 
-	if err := db.AutoMigrate(
+	if err := db.Migrator().DropTable(
+		&models.User{},
+		&models.Book{},
+		&models.Wallet{},
+		&models.Category{},
+		&models.Comment{},
+		&models.Picture{},
+	); err != nil {
+		log.Fatalln(err)
+	}
+
+	if err := db.Migrator().CreateTable(
 		&models.User{},
 		&models.Book{},
 		&models.Wallet{},

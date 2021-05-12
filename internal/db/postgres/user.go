@@ -50,7 +50,9 @@ func (r *repository) GetUserByUsername(username string) (*models.User, error) {
 }
 
 func (r *repository) UpdateUser(user *models.User) error {
-	if err := r.db.Model(&models.User{}).Save(user).Error; err != nil {
+	res := r.db.Model(&models.User{}).Where("id = ?", user.ID).Save(user)
+
+	if err := res.Error; err != nil {
 		r.logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "UpdateUser",
@@ -61,17 +63,28 @@ func (r *repository) UpdateUser(user *models.User) error {
 		return derrors.New(derrors.KindUnexpected, messages.DBError)
 	}
 
+	if res.RowsAffected != 1 {
+		r.logger.Error(&log.Field{
+			Section:  "repository.user",
+			Function: "UpdateUser",
+			Params:   map[string]interface{}{"user": user},
+			Message:  r.translator.TranslateEn(messages.DBError),
+		})
+
+		return derrors.New(derrors.KindUnexpected, messages.DBError)
+	}
+
 	return nil
 }
 
-func (r *repository) DeleteUserByID(id uint) error {
-	res := r.db.Model(&models.User{}).Where("id = ?", id).Delete(&models.User{})
+func (r *repository) DeleteUser(user *models.User) error {
+	res := r.db.Model(&models.User{}).Where("id = ?", user.ID).Delete(user)
 
 	if err := res.Error; err != nil {
 		r.logger.Error(&log.Field{
 			Section:  "repository.user",
-			Function: "DeleteUserByID",
-			Params:   map[string]interface{}{"user_id": id},
+			Function: "DeleteUser",
+			Params:   map[string]interface{}{"user": user},
 			Message:  err.Error(),
 		})
 
@@ -81,8 +94,8 @@ func (r *repository) DeleteUserByID(id uint) error {
 	if res.RowsAffected != 1 {
 		r.logger.Error(&log.Field{
 			Section:  "repository.user",
-			Function: "DeleteUserByID",
-			Params:   map[string]interface{}{"user_id": id},
+			Function: "DeleteUser",
+			Params:   map[string]interface{}{"user": user},
 			Message:  r.translator.TranslateEn(messages.UserNotFound),
 		})
 

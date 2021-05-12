@@ -11,7 +11,7 @@ type (
 		GetUserByID(id uint) (*models.User, error)
 		GetUserByUsername(username string) (*models.User, error)
 		UpdateUser(user *models.User) error
-		DeleteUserByID(id uint) error
+		DeleteUser(user *models.User) error
 		AddUser(user *models.User, wallet *models.Wallet) error
 	}
 )
