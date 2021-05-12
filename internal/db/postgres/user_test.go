@@ -3,8 +3,21 @@ package postgres
 import (
 	"github.com/kianooshaz/bookstore-api/internal/models"
 	"github.com/kianooshaz/bookstore-api/internal/models/types"
+	"github.com/kianooshaz/bookstore-api/pkg/random"
 	"testing"
 )
+
+func newUserTest() *models.User {
+	return &models.User{
+		Username:    random.String(8),
+		FirstName:   random.String(8),
+		LastName:    random.String(8),
+		Email:       random.String(5) + "@" + random.String(3) + "." + random.String(3),
+		PhoneNumber: "0912" + random.StringWithCharset(7, "0123456789"),
+		Gender:      types.Male,
+		Role:        types.Basic,
+	}
+}
 
 func TestAddUser(t *testing.T) {
 	user := newUserTest()
@@ -48,11 +61,11 @@ func TestAddUser(t *testing.T) {
 			err := repoTest.AddUser(tt.user, tt.wallet)
 			if tt.wantError {
 				if err == nil {
-					t.Errorf("error got = %v, want %v", err, tt.wantError)
+					t.Error()
 				}
 			} else {
 				if err != nil {
-					t.Errorf("error got = %v, want %v", err, tt.wantError)
+					t.Error()
 				}
 			}
 		})

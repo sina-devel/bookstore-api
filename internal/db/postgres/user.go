@@ -1,7 +1,6 @@
 package postgres
 
 import (
-	"fmt"
 	"github.com/kianooshaz/bookstore-api/internal/models"
 	"github.com/kianooshaz/bookstore-api/pkg/derrors"
 	"github.com/kianooshaz/bookstore-api/pkg/log"
@@ -99,8 +98,6 @@ func (r *repository) AddUser(user *models.User, wallet *models.Wallet) error {
 	res := tx.Model(&models.User{}).Create(user)
 	if err := res.Error; err != nil {
 		tx.Rollback()
-
-		fmt.Println(user)
 
 		r.logger.Error(&log.Field{
 			Section:  "repository.user",
