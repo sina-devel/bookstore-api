@@ -187,6 +187,12 @@ func TestAddUser(t *testing.T) {
 		Status:  types.WalletOpen,
 	}
 
+	wallet2 := &models.Wallet{
+		UserID:  0,
+		Balance: 0,
+		Status:  types.WalletOpen,
+	}
+
 	tests := []struct {
 		name   string
 		user   *models.User
@@ -206,9 +212,9 @@ func TestAddUser(t *testing.T) {
 			want:   derrors.New(derrors.KindUnexpected, messages.DBError),
 		},
 		{
-			name:   "create user2 and wallet",
+			name:   "create user2 and wallet2",
 			user:   user2,
-			wallet: wallet,
+			wallet: wallet2,
 			want:   nil,
 		},
 	}
