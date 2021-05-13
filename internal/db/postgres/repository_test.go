@@ -2,7 +2,7 @@ package postgres
 
 import (
 	"fmt"
-	"github.com/kianooshaz/bookstore-api/internal/models"
+	"github.com/kianooshaz/bookstore-api/internal/db/postgres/schema"
 	"github.com/kianooshaz/bookstore-api/pkg/log/logrus"
 	"github.com/kianooshaz/bookstore-api/pkg/translate/i18n"
 	"gorm.io/driver/postgres"
@@ -41,23 +41,23 @@ func setupTest() {
 	}
 
 	if err := db.Migrator().DropTable(
-		&models.User{},
-		&models.Book{},
-		&models.Wallet{},
-		&models.Category{},
-		&models.Comment{},
-		&models.Picture{},
+		&schema.User{},
+		&schema.Book{},
+		&schema.Wallet{},
+		&schema.Category{},
+		&schema.Comment{},
+		&schema.Picture{},
 	); err != nil {
 		log.Fatalln(err)
 	}
 
 	if err := db.Migrator().CreateTable(
-		&models.User{},
-		&models.Book{},
-		&models.Wallet{},
-		&models.Category{},
-		&models.Comment{},
-		&models.Picture{},
+		&schema.User{},
+		&schema.Book{},
+		&schema.Wallet{},
+		&schema.Category{},
+		&schema.Comment{},
+		&schema.Picture{},
 	); err != nil {
 		log.Fatalln(err)
 	}

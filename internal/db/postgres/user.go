@@ -1,20 +1,21 @@
 package postgres
 
 import (
+	"github.com/kianooshaz/bookstore-api/internal/db/postgres/schema"
 	"github.com/kianooshaz/bookstore-api/internal/models"
 	"github.com/kianooshaz/bookstore-api/pkg/derrors"
 	"github.com/kianooshaz/bookstore-api/pkg/log"
 	"github.com/kianooshaz/bookstore-api/pkg/translate/messages"
 )
 
-func (r *repository) GetUserByID(id uint) (*models.User, error) {
-	user := new(models.User)
+func (r *repository) GetUserByID(userID uint) (*models.User, error) {
+	user := new(schema.User)
 
-	if err := r.db.Model(&models.User{}).Where("id = ?", id).First(user).Error; err != nil {
+	if err := r.db.Model(&schema.User{}).Where("id = ?", userID).Preload("Wallet").First(user).Error; err != nil {
 		r.logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "GetUserByID",
-			Params:   map[string]interface{}{"user_id": id},
+			Params:   map[string]interface{}{"user_id": userID},
 			Message:  err.Error(),
 		})
 
@@ -25,13 +26,13 @@ func (r *repository) GetUserByID(id uint) (*models.User, error) {
 		return nil, derrors.New(derrors.KindUnexpected, messages.DBError)
 	}
 
-	return user, nil
+	return user.ConvertModel(), nil
 }
 
 func (r *repository) GetUserByUsername(username string) (*models.User, error) {
-	user := new(models.User)
+	user := new(schema.User)
 
-	if err := r.db.Model(&models.User{}).Where("username = ?", username).First(user).Error; err != nil {
+	if err := r.db.Model(&schema.User{}).Where("username = ?", username).Preload("Wallet").First(user).Error; err != nil {
 		r.logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "GetUserByUsername",
@@ -46,15 +47,17 @@ func (r *repository) GetUserByUsername(username string) (*models.User, error) {
 		return nil, derrors.New(derrors.KindUnexpected, messages.DBError)
 	}
 
-	return user, nil
+	return user.ConvertModel(), nil
 }
 
 func (r *repository) UpdateUser(user *models.User) error {
-	if err := r.db.Model(&models.User{}).First(&models.User{}, user.ID).Error; err != nil {
+	u := schema.ConvertUser(user)
+
+	if err := r.db.Model(&schema.User{}).First(&schema.User{}, u.ID).Error; err != nil {
 		r.logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "UpdateUser",
-			Params:   map[string]interface{}{"user": user},
+			Params:   map[string]interface{}{"user": u},
 			Message:  err.Error(),
 		})
 
@@ -65,28 +68,31 @@ func (r *repository) UpdateUser(user *models.User) error {
 		return derrors.New(derrors.KindUnexpected, messages.DBError)
 	}
 
-	if err := r.db.Model(&models.User{}).Where("id = ?", user.ID).Save(user).Error; err != nil {
+	if err := r.db.Model(&schema.User{}).Where("id = ?", u.ID).Save(u).Error; err != nil {
 		r.logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "UpdateUser",
-			Params:   map[string]interface{}{"user": user},
+			Params:   map[string]interface{}{"user": u},
 			Message:  err.Error(),
 		})
 
 		return derrors.New(derrors.KindUnexpected, messages.DBError)
 	}
 
+	user = u.ConvertModel()
+
 	return nil
 }
 
 func (r *repository) DeleteUser(user *models.User) error {
-	res := r.db.Model(&models.User{}).Where("id = ?", user.ID).Delete(user)
+	u := schema.ConvertUser(user)
 
+	res := r.db.Select("Wallet").Where("id", u.ID).Delete(u)
 	if err := res.Error; err != nil {
 		r.logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "DeleteUser",
-			Params:   map[string]interface{}{"user": user},
+			Params:   map[string]interface{}{"user": u},
 			Message:  err.Error(),
 		})
 
@@ -97,59 +103,33 @@ func (r *repository) DeleteUser(user *models.User) error {
 		r.logger.Error(&log.Field{
 			Section:  "repository.user",
 			Function: "DeleteUser",
-			Params:   map[string]interface{}{"user": user},
+			Params:   map[string]interface{}{"user": u},
 			Message:  r.translator.TranslateEn(messages.UserNotFound),
 		})
 
 		return derrors.New(derrors.KindNotFound, messages.UserNotFound)
 	}
 
+	user = u.ConvertModel()
+
 	return nil
 }
 
-func (r *repository) AddUser(user *models.User, wallet *models.Wallet) error {
-	tx := r.db.Begin()
+func (r *repository) CreateUser(user *models.User) error {
+	u := schema.ConvertUser(user)
 
-	res := tx.Model(&models.User{}).Create(user)
-	if err := res.Error; err != nil {
-		tx.Rollback()
-
+	if err := r.db.Create(u).Error; err != nil {
 		r.logger.Error(&log.Field{
 			Section:  "repository.user",
-			Function: "AddUser",
-			Params:   map[string]interface{}{"user": user},
+			Function: "CreateUser",
+			Params:   map[string]interface{}{"user": u},
 			Message:  err.Error(),
 		})
 
 		return derrors.New(derrors.KindUnexpected, messages.DBError)
 	}
 
-	wallet.UserID = user.ID
-
-	res = tx.Model(&models.Wallet{}).Create(wallet)
-	if err := res.Error; err != nil {
-		tx.Rollback()
-
-		r.logger.Error(&log.Field{
-			Section:  "repository.user",
-			Function: "AddUser",
-			Params:   map[string]interface{}{"wallet": wallet},
-			Message:  err.Error(),
-		})
-
-		return derrors.New(derrors.KindUnexpected, messages.DBError)
-	}
-
-	if err := tx.Commit().Error; err != nil {
-		r.logger.Error(&log.Field{
-			Section:  "repository.user",
-			Function: "AddUser",
-			Params:   map[string]interface{}{"user": user, "wallet": wallet},
-			Message:  err.Error(),
-		})
-
-		return derrors.New(derrors.KindUnexpected, messages.DBError)
-	}
+	user.ID = u.ID
 
 	return nil
 }

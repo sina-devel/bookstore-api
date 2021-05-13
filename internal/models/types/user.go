@@ -19,12 +19,14 @@ const (
 	UserActive
 	UserInactive
 	UserBan
-
+)
+const (
 	_ Gender = iota
 	Male
 	Female
 	More
-
+)
+const (
 	_ Role = iota
 	Basic
 	Seller

@@ -1,10 +1,13 @@
-package models
+package schema
 
-import "github.com/kianooshaz/bookstore-api/internal/models/types"
+import (
+	"github.com/kianooshaz/bookstore-api/internal/models/types"
+	"gorm.io/gorm"
+)
 
 type (
 	Book struct {
-		ID            uint
+		gorm.Model
 		Name          string
 		Description   string
 		File          string

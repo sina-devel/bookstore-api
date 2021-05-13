@@ -20,15 +20,18 @@ func newUserTest() *models.User {
 		PhoneNumber: "0912" + random.StringWithCharset(7, "0123456789"),
 		Gender:      types.Male,
 		Role:        types.Basic,
+		Wallet: models.Wallet{
+			Balance: types.Price(rand.Uint32()),
+			Status:  types.WalletOpen,
+		},
 	}
 }
 
 func TestGetUserByID(t *testing.T) {
 	user := newUserTest()
 
-	t.Run("insert new record", func(t *testing.T) {
-		if rows := repoTest.db.Create(user).
-			RowsAffected; rows != 1 {
+	t.Run("create new record", func(t *testing.T) {
+		if err := repoTest.CreateUser(user); err != nil {
 			t.Fail()
 		}
 	})
@@ -62,9 +65,8 @@ func TestGetUserByID(t *testing.T) {
 func TestGetUserByUsername(t *testing.T) {
 	user := newUserTest()
 
-	t.Run("insert new record", func(t *testing.T) {
-		if rows := repoTest.db.Create(user).
-			RowsAffected; rows != 1 {
+	t.Run("create new record", func(t *testing.T) {
+		if err := repoTest.CreateUser(user); err != nil {
 			t.Fail()
 		}
 	})
@@ -99,14 +101,13 @@ func TestUpdateUser(t *testing.T) {
 	user := newUserTest()
 	user2 := newUserTest()
 
-	t.Run("insert new record", func(t *testing.T) {
-		if rows := repoTest.db.Create(user).
-			RowsAffected; rows != 1 {
+	t.Run("create new record", func(t *testing.T) {
+		if err := repoTest.CreateUser(user); err != nil {
 			t.Fail()
 		}
 	})
 
-	user.FirstName = random.String(5)
+	user.FirstName = "updated"
 	user2.ID = uint(rand.Uint32())
 
 	tests := []struct {
@@ -140,9 +141,8 @@ func TestDeleteUserByID(t *testing.T) {
 	user := newUserTest()
 	user2 := newUserTest()
 
-	t.Run("insert new record", func(t *testing.T) {
-		if rows := repoTest.db.Create(user).
-			RowsAffected; rows != 1 {
+	t.Run("create new record", func(t *testing.T) {
+		if err := repoTest.CreateUser(user); err != nil {
 			t.Fail()
 		}
 	})
@@ -179,49 +179,26 @@ func TestAddUser(t *testing.T) {
 
 	user := newUserTest()
 
-	user2 := newUserTest()
-
-	wallet := &models.Wallet{
-		UserID:  0,
-		Balance: 0,
-		Status:  types.WalletOpen,
-	}
-
-	wallet2 := &models.Wallet{
-		UserID:  0,
-		Balance: 0,
-		Status:  types.WalletOpen,
-	}
-
 	tests := []struct {
-		name   string
-		user   *models.User
-		wallet *models.Wallet
-		want   error
+		name string
+		user *models.User
+		want error
 	}{
 		{
-			name:   "create user and wallet",
-			user:   user,
-			wallet: wallet,
-			want:   nil,
+			name: "create user and wallet",
+			user: user,
+			want: nil,
 		},
 		{
-			name:   "username is not unique",
-			user:   user,
-			wallet: wallet,
-			want:   derrors.New(derrors.KindUnexpected, messages.DBError),
-		},
-		{
-			name:   "create user2 and wallet2",
-			user:   user2,
-			wallet: wallet2,
-			want:   nil,
+			name: "username is not unique",
+			user: user,
+			want: derrors.New(derrors.KindUnexpected, messages.DBError),
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			err := repoTest.AddUser(tt.user, tt.wallet)
+			err := repoTest.CreateUser(tt.user)
 			if !errors.Is(err, tt.want) {
 				t.Error()
 			}

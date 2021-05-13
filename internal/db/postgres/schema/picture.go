@@ -1,8 +1,10 @@
-package models
+package schema
+
+import "gorm.io/gorm"
 
 type (
 	Picture struct {
-		ID     uint
+		gorm.Model
 		Name   string
 		Alt    string
 		BookID uint

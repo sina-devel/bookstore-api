@@ -1,8 +1,10 @@
-package models
+package schema
+
+import "gorm.io/gorm"
 
 type (
 	Comment struct {
-		ID          uint
+		gorm.Model
 		UserID      uint
 		Text        string
 		BookID      uint

@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	"github.com/kianooshaz/bookstore-api/internal/models"
+	"github.com/kianooshaz/bookstore-api/internal/db/postgres/schema"
 	"github.com/kianooshaz/bookstore-api/pkg/derrors"
 	"github.com/kianooshaz/bookstore-api/pkg/log"
 	"github.com/kianooshaz/bookstore-api/pkg/translate/messages"
@@ -9,12 +9,12 @@ import (
 
 func (r *repository) migration() error {
 	if err := r.db.AutoMigrate(
-		&models.User{},
-		&models.Book{},
-		&models.Wallet{},
-		&models.Category{},
-		&models.Comment{},
-		&models.Picture{},
+		&schema.User{},
+		&schema.Book{},
+		&schema.Wallet{},
+		&schema.Category{},
+		&schema.Comment{},
+		&schema.Picture{},
 	); err != nil {
 		r.logger.Error(&log.Field{
 			Section:  "postgres.migration",

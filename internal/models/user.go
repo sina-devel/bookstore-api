@@ -4,8 +4,8 @@ import "github.com/kianooshaz/bookstore-api/internal/models/types"
 
 type (
 	User struct {
-		Base
-		Username              string `gorm:"unique;not null"`
+		ID                    uint
+		Username              string
 		FirstName             string
 		LastName              string
 		Email                 string
@@ -15,6 +15,6 @@ type (
 		Gender                types.Gender
 		Role                  types.Role
 		Avatar                string
-		Token                 string
+		Wallet                Wallet
 	}
 )

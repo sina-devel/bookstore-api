@@ -1,8 +1,10 @@
-package models
+package schema
+
+import "gorm.io/gorm"
 
 type (
 	Category struct {
-		ID          uint
+		gorm.Model
 		Name        string
 		Description string
 		Slug        string
