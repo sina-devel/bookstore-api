@@ -25,7 +25,6 @@ func (r *repository) connect() error {
 		r.logger.Error(&log.Field{
 			Section:  "postgres.postgres",
 			Function: "connect",
-			Params:   map[string]interface{}{"esmam": "kianoosh", "familim": "az"},
 			Message:  err.Error(),
 		})
 
