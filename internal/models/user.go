@@ -1,6 +1,8 @@
 package models
 
-import "github.com/kianooshaz/bookstore-api/internal/models/types"
+import (
+	"github.com/kianooshaz/bookstore-api/internal/models/types"
+)
 
 type (
 	User struct {
