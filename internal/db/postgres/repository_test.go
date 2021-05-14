@@ -83,8 +83,10 @@ func setupTest(t *testing.T) *repository {
 }
 
 func newUserTest() *models.User {
+
 	return &models.User{
 		Username:    random.String(8),
+		Password:    random.String(25),
 		FirstName:   random.String(8),
 		LastName:    random.String(8),
 		Email:       random.String(5) + "@" + random.String(3) + "." + random.String(3),
