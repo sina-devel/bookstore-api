@@ -10,6 +10,7 @@ type (
 	User struct {
 		gorm.Model
 		Username              string `gorm:"unique; not null"`
+		Password              string
 		FirstName             string
 		LastName              string
 		Email                 string
@@ -27,6 +28,7 @@ func (u *User) ConvertModel() *models.User {
 	return &models.User{
 		ID:                    u.ID,
 		Username:              u.Username,
+		Password:              u.Password,
 		FirstName:             u.FirstName,
 		LastName:              u.LastName,
 		Email:                 u.Email,
@@ -49,6 +51,7 @@ func ConvertUser(user *models.User) *User {
 	return &User{
 		Model:                 gorm.Model{ID: user.ID},
 		Username:              user.Username,
+		Password:              user.Password,
 		FirstName:             user.FirstName,
 		LastName:              user.LastName,
 		Email:                 user.Email,

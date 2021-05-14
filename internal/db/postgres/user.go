@@ -8,6 +8,25 @@ import (
 	"github.com/kianooshaz/bookstore-api/pkg/translate/messages"
 )
 
+func (r *repository) CreateUser(user *models.User) error {
+	u := schema.ConvertUser(user)
+
+	if err := r.db.Create(u).Error; err != nil {
+		r.logger.Error(&log.Field{
+			Section:  "repository.user",
+			Function: "CreateUser",
+			Params:   map[string]interface{}{"user": u},
+			Message:  err.Error(),
+		})
+
+		return derrors.New(derrors.KindUnexpected, messages.DBError)
+	}
+
+	user = u.ConvertModel()
+
+	return nil
+}
+
 func (r *repository) GetUserByID(userID uint) (*models.User, error) {
 	user := new(schema.User)
 
@@ -111,25 +130,6 @@ func (r *repository) DeleteUser(user *models.User) error {
 	}
 
 	user = u.ConvertModel()
-
-	return nil
-}
-
-func (r *repository) CreateUser(user *models.User) error {
-	u := schema.ConvertUser(user)
-
-	if err := r.db.Create(u).Error; err != nil {
-		r.logger.Error(&log.Field{
-			Section:  "repository.user",
-			Function: "CreateUser",
-			Params:   map[string]interface{}{"user": u},
-			Message:  err.Error(),
-		})
-
-		return derrors.New(derrors.KindUnexpected, messages.DBError)
-	}
-
-	user.ID = u.ID
 
 	return nil
 }
