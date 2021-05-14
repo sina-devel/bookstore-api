@@ -11,22 +11,6 @@ import (
 	"testing"
 )
 
-func newUserTest() *models.User {
-	return &models.User{
-		Username:    random.String(8),
-		FirstName:   random.String(8),
-		LastName:    random.String(8),
-		Email:       random.String(5) + "@" + random.String(3) + "." + random.String(3),
-		PhoneNumber: "0912" + random.StringWithCharset(7, "0123456789"),
-		Gender:      types.Male,
-		Role:        types.Basic,
-		Wallet: models.Wallet{
-			Balance: types.Price(rand.Uint32()),
-			Status:  types.WalletOpen,
-		},
-	}
-}
-
 func TestGetUserByID(t *testing.T) {
 	user := newUserTest()
 
