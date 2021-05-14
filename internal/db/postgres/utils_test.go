@@ -7,7 +7,6 @@ import (
 
 func TestIsErrorNotFound(t *testing.T) {
 	user := newUserTest()
-	err1 := repoTest.db.First(user, rand.Uint32()).Error
 
 	t.Run("create new record", func(t *testing.T) {
 		if err := repoTest.CreateUser(user); err != nil {
@@ -15,6 +14,7 @@ func TestIsErrorNotFound(t *testing.T) {
 		}
 	})
 
+	err1 := repoTest.db.First(user, rand.Uint32()).Error
 	err2 := repoTest.db.First(user, user.ID).Error
 
 	test := []struct {
