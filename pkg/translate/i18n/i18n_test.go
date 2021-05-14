@@ -21,10 +21,10 @@ func TestMessageBundle_Translate(t *testing.T) {
 		{
 			name: "translate farsi",
 			args: args{
-				message:  messages.UserNotFound,
+				message:  messages.DBError,
 				language: translate.GetLanguage("fa"),
 			},
-			want: "کاربر مورد نظر یافت نشد",
+			want: "خطایی وجود دارد",
 		},
 		{
 			name: "translate english",
@@ -32,7 +32,7 @@ func TestMessageBundle_Translate(t *testing.T) {
 				message:  messages.UserNotFound,
 				language: translate.GetLanguage("en"),
 			},
-			want: "no user found",
+			want: "user not found",
 		},
 		{
 			name: "message key not found",
@@ -44,14 +44,14 @@ func TestMessageBundle_Translate(t *testing.T) {
 		},
 	}
 
-	translate, err := New("testdata")
+	translator, err := New("testdata")
 	if err != nil {
 		t.Errorf("New() error : %v", err)
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := translate.Translate(tt.args.language, tt.args.message)
+			got := translator.Translate(tt.args.language, tt.args.message)
 			if got != tt.want {
 				t.Errorf("Translate() got = %v, want %v", got, tt.want)
 			}
@@ -86,14 +86,14 @@ func TestMessageBundle_TranslateEn(t *testing.T) {
 		},
 	}
 
-	translate, err := New("testdata")
+	translator, err := New("testdata")
 	if err != nil {
 		t.Errorf("New() error : %v", err)
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := translate.TranslateEn(tt.args.message)
+			got := translator.TranslateEn(tt.args.message)
 			if got != tt.want {
 				t.Errorf("TranslateEn() got = %v, want %v", got, tt.want)
 			}

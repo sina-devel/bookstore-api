@@ -66,7 +66,7 @@ func setupTest() {
 		log.Fatalln(err)
 	}
 
-	translator, err := i18n.New("./build/i18n/")
+	translator, err := i18n.New("../../../build/i18n/")
 	if err != nil {
 		log.Fatalln(err)
 	}
