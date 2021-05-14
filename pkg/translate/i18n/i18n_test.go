@@ -75,7 +75,7 @@ func TestMessageBundle_TranslateEn(t *testing.T) {
 			args: args{
 				message: messages.UserNotFound,
 			},
-			want: "no user found",
+			want: "user not found",
 		},
 		{
 			name: "message key not found",
