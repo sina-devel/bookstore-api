@@ -1,74 +1,39 @@
 package postgres
 
 import (
-	"fmt"
+	"github.com/kianooshaz/bookstore-api/internal/config"
 	"github.com/kianooshaz/bookstore-api/internal/db/postgres/schema"
 	"github.com/kianooshaz/bookstore-api/internal/models"
 	"github.com/kianooshaz/bookstore-api/internal/models/types"
 	"github.com/kianooshaz/bookstore-api/pkg/log/logrus"
 	"github.com/kianooshaz/bookstore-api/pkg/random"
 	"github.com/kianooshaz/bookstore-api/pkg/translate/i18n"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
 	"log"
 	"math/rand"
 	"os"
 	"testing"
 )
 
-var (
-	repoTest *repository
-)
-
 func TestMain(m *testing.M) {
-	setupTest()
-	code := m.Run()
-	tearDownTest()
-	os.Exit(code)
+	os.Exit(m.Run())
 }
 
-func setupTest() {
-	dsn := fmt.Sprintf("host=%v user=%v password=%v dbname=%v port=%v sslmode=%v TimeZone=%v",
-		"127.0.0.1",
-		"postgres",
-		"12345",
-		"bookstore_test",
-		"5432",
-		"disable",
-		"Asia/Tehran",
-	)
-
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	if err != nil {
-		log.Fatalln(err)
-
-	}
-
-	if err := db.Migrator().DropTable(
-		&schema.User{},
-		&schema.Book{},
-		&schema.Wallet{},
-		&schema.Category{},
-		&schema.Comment{},
-		&schema.Picture{},
-	); err != nil {
-		log.Fatalln(err)
-	}
-
-	if err := db.Migrator().CreateTable(
-		&schema.User{},
-		&schema.Book{},
-		&schema.Wallet{},
-		&schema.Category{},
-		&schema.Comment{},
-		&schema.Picture{},
-	); err != nil {
-		log.Fatalln(err)
+func setupTest(t *testing.T) *repository {
+	cfg := &config.Postgres{
+		Username:  "postgres",
+		Password:  "12345",
+		DBName:    "bookstore_test",
+		Host:      "127.0.0.1",
+		Port:      "5432",
+		SSLMode:   "disable",
+		TimeZone:  "Asia/Tehran",
+		Charset:   "utf8mb4",
+		Migration: true,
 	}
 
 	translator, err := i18n.New("../../../build/i18n/")
 	if err != nil {
-		log.Fatalln(err)
+		t.Fatal(err)
 	}
 
 	logger, err := logrus.New(&logrus.Option{
@@ -78,16 +43,43 @@ func setupTest() {
 		RotationTime: "24h",
 		RotationSize: "20MB",
 	})
+	if err != nil {
+		t.Fatal(err)
+	}
 
-	repoTest = &repository{
-		db:         db,
+	repo := &repository{
+		cfg:        cfg,
 		translator: translator,
 		logger:     logger,
 	}
-}
 
-func tearDownTest() {
-	repoTest = nil
+	if err := repo.connect(); err != nil {
+		t.Fatal(err)
+	}
+
+	if err := repo.db.Migrator().DropTable(
+		&schema.User{},
+		&schema.Book{},
+		&schema.Wallet{},
+		&schema.Category{},
+		&schema.Comment{},
+		&schema.Picture{},
+	); err != nil {
+		log.Fatalln(err)
+	}
+
+	if err := repo.db.Migrator().CreateTable(
+		&schema.User{},
+		&schema.Book{},
+		&schema.Wallet{},
+		&schema.Category{},
+		&schema.Comment{},
+		&schema.Picture{},
+	); err != nil {
+		log.Fatalln(err)
+	}
+
+	return repo
 }
 
 func newUserTest() *models.User {

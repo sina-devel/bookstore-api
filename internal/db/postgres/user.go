@@ -22,7 +22,7 @@ func (r *repository) CreateUser(user *models.User) error {
 		return derrors.New(derrors.KindUnexpected, messages.DBError)
 	}
 
-	user = u.ConvertModel()
+	user.ID = u.ID
 
 	return nil
 }

@@ -11,13 +11,13 @@ import (
 
 func (r *repository) connect() error {
 	dsn := fmt.Sprintf("host=%v user=%v password=%v dbname=%v port=%v sslmode=%v TimeZone=%v",
-		r.cfg.Database.Postgres.Host,
-		r.cfg.Database.Postgres.Username,
-		r.cfg.Database.Postgres.Password,
-		r.cfg.Database.Postgres.DBName,
-		r.cfg.Database.Postgres.Port,
-		r.cfg.Database.Postgres.SSLMode,
-		r.cfg.Database.Postgres.TimeZone,
+		r.cfg.Host,
+		r.cfg.Username,
+		r.cfg.Password,
+		r.cfg.DBName,
+		r.cfg.Port,
+		r.cfg.SSLMode,
+		r.cfg.TimeZone,
 	)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
