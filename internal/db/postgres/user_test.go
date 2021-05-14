@@ -3,7 +3,6 @@ package postgres
 import (
 	"errors"
 	"github.com/kianooshaz/bookstore-api/internal/models"
-	"github.com/kianooshaz/bookstore-api/internal/models/types"
 	"github.com/kianooshaz/bookstore-api/pkg/derrors"
 	"github.com/kianooshaz/bookstore-api/pkg/random"
 	"github.com/kianooshaz/bookstore-api/pkg/translate/messages"
