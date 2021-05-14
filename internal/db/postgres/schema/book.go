@@ -60,3 +60,41 @@ func (b *Book) ConvertModel() *models.Book {
 	}
 
 }
+
+func ConvertBook(book *models.Book) *Book {
+	var comments []Comment
+	for _, comment := range book.Comments {
+		comments = append(comments, Comment{
+			Model:       gorm.Model{ID: comment.ID},
+			UserID:      comment.UserID,
+			Text:        comment.Text,
+			BookID:      comment.BookID,
+			FullName:    comment.FullName,
+			IsConfirmed: comment.IsConfirmed,
+		})
+	}
+
+	var pictures []Picture
+	for _, picture := range book.Pictures {
+		pictures = append(pictures, Picture{
+			Model:  gorm.Model{ID: picture.ID},
+			Name:   picture.Name,
+			Alt:    picture.Alt,
+			BookID: picture.BookID,
+		})
+	}
+
+	return &Book{
+		Model:         gorm.Model{ID: book.ID},
+		Name:          book.Name,
+		Description:   book.Description,
+		File:          book.File,
+		SellerID:      book.SellerID,
+		CategoryID:    book.CategoryID,
+		Comments:      comments,
+		DownloadCount: book.DownloadCount,
+		Pictures:      pictures,
+		Status:        book.Status,
+		Price:         book.Price,
+	}
+}
