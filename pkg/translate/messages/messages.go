@@ -7,7 +7,10 @@ const (
 	InvalidGender       = "InvalidGender"
 	InvalidRole         = "InvalidRole"
 
-	UserNotFound = "UserNotFound"
+	DBError      = "DBError"
+	GeneralError = "GeneralError"
 
-	DBError = "DBError"
+	UserNotFound          = "UserNotFound"
+	InvalidUsernameLength = "InvalidUsernameLength"
+	InvalidPassword       = "InvalidPasswordLength"
 )

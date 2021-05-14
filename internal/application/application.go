@@ -3,6 +3,7 @@ package application
 import (
 	"github.com/kianooshaz/bookstore-api/internal/config"
 	"github.com/kianooshaz/bookstore-api/internal/db/postgres"
+	"github.com/kianooshaz/bookstore-api/internal/service/user"
 	"github.com/kianooshaz/bookstore-api/pkg/log/logrus"
 	"github.com/kianooshaz/bookstore-api/pkg/translate/i18n"
 )
@@ -24,12 +25,14 @@ func Run(cfg *config.Config) error {
 		return err
 	}
 
-	repository, err := postgres.New(cfg, translator, logger)
+	mainRepository, err := postgres.New(cfg, translator, logger)
 	if err != nil {
 		return err
 	}
 
-	_ = repository
+	userService := user.New(cfg, mainRepository, logger, translator)
+
+	_ = userService
 
 	return nil
 }

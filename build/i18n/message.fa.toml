@@ -5,8 +5,11 @@ InvalidBookStatus = "وضعیت کتاب نامعتبر است"
 InvalidGender = "جنسیت نامعتبر است"
 InvalidRole = "نقش نامعتبر است"
 
-# no found
-UserNotFound = "کاربر مورد نظر یافت نشد"
-
 # general
 DBError = "خطایی وجود دارد"
+GeneralError = "خطایی وجود دارد"
+
+# user
+UserNotFound = "کاربر مورد نظر یافت نشد"
+InvalidUsernameLength = "ظول نام کاربری نامعتبر است"
+InvalidPassword = "رمز عبور نامعتبر است"

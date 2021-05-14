@@ -5,6 +5,7 @@ type (
 		Database Database `yaml:"database"`
 		I18n     I18n     `yaml:"i18n"`
 		Logger   Logger   `yaml:"logger"`
+		User     User     `yaml:"user"`
 	}
 
 	Database struct {
@@ -33,5 +34,11 @@ type (
 		FilenamePattern string `yaml:"filename_pattern"`
 		RotationTime    string `yaml:"rotation_time"`
 		InternalPath    string `yaml:"internal_path"`
+	}
+
+	User struct {
+		UsernameMinLength  int `yaml:"username_min_length"`
+		UsernameMaxLength  int `yaml:"username_max_length"`
+		PasswordMinLetters int `yaml:"password_min_letters"`
 	}
 )

@@ -5,8 +5,11 @@ InvalidBookStatus = "invalid book status"
 InvalidGender = "invalid gender"
 InvalidRole = "invalid role"
 
-# no found
-UserNotFound = "user not found"
-
 # general
 DBError = "error is exist"
+GeneralError = "error is exist"
+
+# user
+UserNotFound = "UserNotFound"
+InvalidUsernameLength = "invalid username length"
+InvalidPassword = "invalid password"

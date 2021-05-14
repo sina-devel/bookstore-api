@@ -19,3 +19,8 @@ logger:
   filename_pattern: "%Y-%m-%dT%H:%M"
   rotation_time: "24h"
   internal_path: "./logs/internal"
+
+user:
+  username_min_length: 3
+  username_max_length: 50
+  password_min_letters: 8
