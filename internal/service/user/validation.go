@@ -1,10 +1,11 @@
 package user
 
 import (
+	"unicode"
+
 	"github.com/kianooshaz/bookstore-api/pkg/derrors"
 	"github.com/kianooshaz/bookstore-api/pkg/log"
 	"github.com/kianooshaz/bookstore-api/pkg/translate/messages"
-	"unicode"
 )
 
 func (s *service) validateUsername(username string) error {
@@ -12,7 +13,7 @@ func (s *service) validateUsername(username string) error {
 	if l := len(username); l <= s.cfg.UsernameMinLength || l >= s.cfg.UsernameMaxLength {
 		s.logger.Error(&log.Field{
 			Section:  "user.validation",
-			Function: "validateCreateUser",
+			Function: "validateUsername",
 			Params:   map[string]interface{}{"username": username},
 			Message:  s.translator.TranslateEn(messages.InvalidUsernameLength),
 		})
@@ -41,7 +42,7 @@ func (s *service) validatePassword(password string) error {
 		default:
 			s.logger.Error(&log.Field{
 				Section:  "user.validation",
-				Function: "validateCreateUser",
+				Function: "validatePassword",
 				Params:   map[string]interface{}{"password": password},
 				Message:  s.translator.TranslateEn(messages.InvalidPassword),
 			})
@@ -56,7 +57,7 @@ func (s *service) validatePassword(password string) error {
 
 	s.logger.Error(&log.Field{
 		Section:  "user.validation",
-		Function: "validateCreateUser",
+		Function: "validatePassword",
 		Params:   map[string]interface{}{"password": password},
 		Message:  s.translator.TranslateEn(messages.InvalidPassword),
 	})
