@@ -23,6 +23,12 @@ func (r *repository) CreateUser(user *models.User) error {
 	}
 
 	user.ID = u.ID
+	user.Wallet = models.Wallet{
+		ID:      u.Wallet.UserID,
+		UserID:  u.Wallet.UserID,
+		Balance: u.Wallet.Balance,
+		Status:  u.Wallet.Status,
+	}
 
 	return nil
 }

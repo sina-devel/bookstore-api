@@ -10,13 +10,8 @@ import (
 	"github.com/kianooshaz/bookstore-api/pkg/translate/i18n"
 	"log"
 	"math/rand"
-	"os"
 	"testing"
 )
-
-func TestMain(m *testing.M) {
-	os.Exit(m.Run())
-}
 
 func setupTest(t *testing.T) *repository {
 	cfg := &config.Postgres{
@@ -83,7 +78,6 @@ func setupTest(t *testing.T) *repository {
 }
 
 func newUserTest() *models.User {
-
 	return &models.User{
 		Username:    random.String(8),
 		Password:    random.String(25),

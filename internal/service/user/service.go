@@ -8,13 +8,13 @@ import (
 )
 
 type service struct {
-	cfg        *config.Config
+	cfg        *config.User
 	userRepo   contract.UserRepository
 	logger     log.Logger
 	translator translate.Translator
 }
 
-func New(cfg *config.Config, mainRepo contract.MainRepository, logger log.Logger, translator translate.Translator) contract.UserService {
+func New(cfg *config.User, mainRepo contract.MainRepository, logger log.Logger, translator translate.Translator) contract.UserService {
 	return &service{
 		cfg:        cfg,
 		userRepo:   mainRepo,

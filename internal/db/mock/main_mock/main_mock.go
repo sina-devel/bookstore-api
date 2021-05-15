@@ -34,18 +34,18 @@ func (m *MockMainRepository) EXPECT() *MockMainRepositoryMockRecorder {
 	return m.recorder
 }
 
-// AddUser mocks base method.
-func (m *MockMainRepository) AddUser(user *models.User, wallet *models.Wallet) error {
+// CreateUser mocks base method.
+func (m *MockMainRepository) CreateUser(user *models.User) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AddUser", user, wallet)
+	ret := m.ctrl.Call(m, "CreateUser", user)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
-// AddUser indicates an expected call of AddUser.
-func (mr *MockMainRepositoryMockRecorder) AddUser(user, wallet interface{}) *gomock.Call {
+// CreateUser indicates an expected call of CreateUser.
+func (mr *MockMainRepositoryMockRecorder) CreateUser(user interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddUser", reflect.TypeOf((*MockMainRepository)(nil).AddUser), user, wallet)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockMainRepository)(nil).CreateUser), user)
 }
 
 // DeleteUser mocks base method.
@@ -129,18 +129,18 @@ func (m *MockUserRepository) EXPECT() *MockUserRepositoryMockRecorder {
 	return m.recorder
 }
 
-// AddUser mocks base method.
-func (m *MockUserRepository) AddUser(user *models.User, wallet *models.Wallet) error {
+// CreateUser mocks base method.
+func (m *MockUserRepository) CreateUser(user *models.User) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AddUser", user, wallet)
+	ret := m.ctrl.Call(m, "CreateUser", user)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
-// AddUser indicates an expected call of AddUser.
-func (mr *MockUserRepositoryMockRecorder) AddUser(user, wallet interface{}) *gomock.Call {
+// CreateUser indicates an expected call of CreateUser.
+func (mr *MockUserRepositoryMockRecorder) CreateUser(user interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddUser", reflect.TypeOf((*MockUserRepository)(nil).AddUser), user, wallet)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockUserRepository)(nil).CreateUser), user)
 }
 
 // DeleteUser mocks base method.
