@@ -8,7 +8,7 @@ import (
 	"github.com/kianooshaz/bookstore-api/pkg/translate/messages"
 )
 
-func (r *repository) CreateUser(user *models.User) error {
+func (r *repository) CreateUser(user *models.User) (*models.User, error) {
 	u := schema.ConvertUser(user)
 
 	if err := r.db.Create(u).Error; err != nil {
@@ -19,18 +19,10 @@ func (r *repository) CreateUser(user *models.User) error {
 			Message:  err.Error(),
 		})
 
-		return derrors.New(derrors.KindUnexpected, messages.DBError)
+		return nil, derrors.New(derrors.KindUnexpected, messages.DBError)
 	}
 
-	user.ID = u.ID
-	user.Wallet = models.Wallet{
-		ID:      u.Wallet.UserID,
-		UserID:  u.Wallet.UserID,
-		Balance: u.Wallet.Balance,
-		Status:  u.Wallet.Status,
-	}
-
-	return nil
+	return u.ConvertModel(), nil
 }
 
 func (r *repository) GetUserByID(userID uint) (*models.User, error) {
@@ -75,7 +67,7 @@ func (r *repository) GetUserByUsername(username string) (*models.User, error) {
 	return user.ConvertModel(), nil
 }
 
-func (r *repository) UpdateUser(user *models.User) error {
+func (r *repository) UpdateUser(user *models.User) (*models.User, error) {
 	u := schema.ConvertUser(user)
 
 	if err := r.db.Model(&schema.User{}).First(&schema.User{}, u.ID).Error; err != nil {
@@ -87,10 +79,10 @@ func (r *repository) UpdateUser(user *models.User) error {
 		})
 
 		if isErrorNotFound(err) {
-			return derrors.New(derrors.KindNotFound, messages.UserNotFound)
+			return nil, derrors.New(derrors.KindNotFound, messages.UserNotFound)
 		}
 
-		return derrors.New(derrors.KindUnexpected, messages.DBError)
+		return nil, derrors.New(derrors.KindUnexpected, messages.DBError)
 	}
 
 	if err := r.db.Model(&schema.User{}).Where("id = ?", u.ID).Save(u).Error; err != nil {
@@ -101,12 +93,10 @@ func (r *repository) UpdateUser(user *models.User) error {
 			Message:  err.Error(),
 		})
 
-		return derrors.New(derrors.KindUnexpected, messages.DBError)
+		return nil, derrors.New(derrors.KindUnexpected, messages.DBError)
 	}
 
-	user = u.ConvertModel()
-
-	return nil
+	return u.ConvertModel(), nil
 }
 
 func (r *repository) DeleteUser(user *models.User) error {
@@ -134,8 +124,6 @@ func (r *repository) DeleteUser(user *models.User) error {
 
 		return derrors.New(derrors.KindNotFound, messages.UserNotFound)
 	}
-
-	user = u.ConvertModel()
 
 	return nil
 }

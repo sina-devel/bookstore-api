@@ -7,11 +7,11 @@ import (
 
 func TestIsErrorNotFound(t *testing.T) {
 	repo := setupTest(t)
-
 	user := newUserTest()
+	var err error
 
 	t.Run("create new record", func(t *testing.T) {
-		if err := repo.CreateUser(user); err != nil {
+		if user, err = repo.CreateUser(user); err != nil {
 			t.Fail()
 		}
 	})

@@ -35,11 +35,12 @@ func (m *MockMainRepository) EXPECT() *MockMainRepositoryMockRecorder {
 }
 
 // CreateUser mocks base method.
-func (m *MockMainRepository) CreateUser(user *models.User) error {
+func (m *MockMainRepository) CreateUser(user *models.User) (*models.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateUser", user)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret0, _ := ret[0].(*models.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // CreateUser indicates an expected call of CreateUser.
@@ -93,11 +94,12 @@ func (mr *MockMainRepositoryMockRecorder) GetUserByUsername(username interface{}
 }
 
 // UpdateUser mocks base method.
-func (m *MockMainRepository) UpdateUser(user *models.User) error {
+func (m *MockMainRepository) UpdateUser(user *models.User) (*models.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateUser", user)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret0, _ := ret[0].(*models.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // UpdateUser indicates an expected call of UpdateUser.
@@ -130,11 +132,12 @@ func (m *MockUserRepository) EXPECT() *MockUserRepositoryMockRecorder {
 }
 
 // CreateUser mocks base method.
-func (m *MockUserRepository) CreateUser(user *models.User) error {
+func (m *MockUserRepository) CreateUser(user *models.User) (*models.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateUser", user)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret0, _ := ret[0].(*models.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // CreateUser indicates an expected call of CreateUser.
@@ -188,11 +191,12 @@ func (mr *MockUserRepositoryMockRecorder) GetUserByUsername(username interface{}
 }
 
 // UpdateUser mocks base method.
-func (m *MockUserRepository) UpdateUser(user *models.User) error {
+func (m *MockUserRepository) UpdateUser(user *models.User) (*models.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateUser", user)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret0, _ := ret[0].(*models.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // UpdateUser indicates an expected call of UpdateUser.

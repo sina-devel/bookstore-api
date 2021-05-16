@@ -12,11 +12,11 @@ import (
 
 func TestGetUserByID(t *testing.T) {
 	repo := setupTest(t)
-
 	user := newUserTest()
+	var err error
 
 	t.Run("create new record", func(t *testing.T) {
-		if err := repo.CreateUser(user); err != nil {
+		if user, err = repo.CreateUser(user); err != nil {
 			t.Fail()
 		}
 	})
@@ -49,11 +49,11 @@ func TestGetUserByID(t *testing.T) {
 
 func TestGetUserByUsername(t *testing.T) {
 	repo := setupTest(t)
-
 	user := newUserTest()
+	var err error
 
 	t.Run("create new record", func(t *testing.T) {
-		if err := repo.CreateUser(user); err != nil {
+		if user, err = repo.CreateUser(user); err != nil {
 			t.Fail()
 		}
 	})
@@ -86,12 +86,13 @@ func TestGetUserByUsername(t *testing.T) {
 
 func TestUpdateUser(t *testing.T) {
 	repo := setupTest(t)
-
 	user := newUserTest()
 	user2 := newUserTest()
 
+	var err error
+
 	t.Run("create new record", func(t *testing.T) {
-		if err := repo.CreateUser(user); err != nil {
+		if user, err = repo.CreateUser(user); err != nil {
 			t.Fail()
 		}
 	})
@@ -118,7 +119,7 @@ func TestUpdateUser(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			err := repo.UpdateUser(tt.user)
+			_, err := repo.UpdateUser(tt.user)
 			if !errors.Is(err, tt.want) {
 				t.Error()
 			}
@@ -128,12 +129,12 @@ func TestUpdateUser(t *testing.T) {
 
 func TestDeleteUserByID(t *testing.T) {
 	repo := setupTest(t)
-
 	user := newUserTest()
 	user2 := newUserTest()
+	var err error
 
 	t.Run("create new record", func(t *testing.T) {
-		if err := repo.CreateUser(user); err != nil {
+		if user, err = repo.CreateUser(user); err != nil {
 			t.Fail()
 		}
 	})
@@ -166,7 +167,7 @@ func TestDeleteUserByID(t *testing.T) {
 	}
 }
 
-func TestAddUser(t *testing.T) {
+func TestCreateUser(t *testing.T) {
 	repo := setupTest(t)
 
 	user := newUserTest()
@@ -190,7 +191,7 @@ func TestAddUser(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			err := repo.CreateUser(tt.user)
+			_, err := repo.CreateUser(tt.user)
 			if !errors.Is(err, tt.want) {
 				t.Error()
 			}
