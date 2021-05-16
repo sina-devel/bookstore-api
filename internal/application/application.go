@@ -25,12 +25,12 @@ func Run(cfg *config.Config) error {
 		return err
 	}
 
-	mainRepository, err := postgres.New(cfg, translator, logger)
+	mainRepository, err := postgres.New(cfg.Database.Postgres, translator, logger)
 	if err != nil {
 		return err
 	}
 
-	userService := user.New(cfg, mainRepository, logger, translator)
+	userService := user.New(cfg.User, mainRepository, logger, translator)
 
 	_ = userService
 

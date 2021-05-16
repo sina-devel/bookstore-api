@@ -9,7 +9,7 @@ import (
 
 func (s *service) validateUsername(username string) error {
 
-	if l := len(username); l <= s.cfg.UsernameMinLength || l >= s.cfg.UsernameMaxLength {
+	if l := len(username); l <= s.userCfg.UsernameMinLength || l >= s.userCfg.UsernameMaxLength {
 		s.logger.Error(&log.Field{
 			Section:  "user.validation",
 			Function: "validateCreateUser",
@@ -50,7 +50,7 @@ func (s *service) validatePassword(password string) error {
 		}
 	}
 
-	if letters >= s.cfg.PasswordMinLetters && number && upper && special {
+	if letters >= s.userCfg.PasswordMinLetters && number && upper && special {
 		return nil
 	}
 

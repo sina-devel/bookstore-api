@@ -53,7 +53,7 @@ func setupTest(t *testing.T) {
 	mockMainRepo = main_mock.NewMockMainRepository(mockCtrl)
 
 	serviceTest = &service{
-		cfg:        cfg,
+		userCfg:    cfg,
 		userRepo:   mockMainRepo,
 		logger:     logger,
 		translator: translator,

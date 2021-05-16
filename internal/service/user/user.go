@@ -43,7 +43,8 @@ func (s *service) CreateUser(req *params.CreateUserRequest) (*models.User, error
 		Role:                  req.Role,
 	}
 
-	if err := s.userRepo.CreateUser(user); err != nil {
+	user, err = s.userRepo.CreateUser(user)
+	if err != nil {
 		return nil, err
 	}
 
@@ -84,7 +85,8 @@ func (s *service) UpdateUser(req *params.UpdateUserRequest) (*models.User, error
 	user.Role = req.Role
 	user.Avatar = req.Avatar
 
-	if err := s.userRepo.UpdateUser(user); err != nil {
+	user, err = s.userRepo.UpdateUser(user)
+	if err != nil {
 		return nil, err
 	}
 

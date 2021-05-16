@@ -44,7 +44,8 @@ func TestCreateUser(t *testing.T) {
 	type createUser struct {
 		expect    bool
 		parameter *models.User
-		return1   error
+		return1   *models.User
+		return2   error
 	}
 
 	test := []struct {
@@ -59,7 +60,8 @@ func TestCreateUser(t *testing.T) {
 			createUser: createUser{
 				expect:    true,
 				parameter: user,
-				return1:   nil,
+				return1:   user,
+				return2:   nil,
 			},
 			want: nil,
 		},
@@ -69,7 +71,8 @@ func TestCreateUser(t *testing.T) {
 			createUser: createUser{
 				expect:    true,
 				parameter: user,
-				return1:   derrors.New(derrors.KindUnexpected, messages.DBError),
+				return1:   nil,
+				return2:   derrors.New(derrors.KindUnexpected, messages.DBError),
 			},
 			want: derrors.New(derrors.KindUnexpected, messages.DBError),
 		},
@@ -86,7 +89,7 @@ func TestCreateUser(t *testing.T) {
 	for _, tt := range test {
 		t.Run(tt.name, func(t *testing.T) {
 			if tt.createUser.expect {
-				mockMainRepo.EXPECT().CreateUser(tt.createUser.parameter).Return(tt.createUser.return1)
+				mockMainRepo.EXPECT().CreateUser(tt.createUser.parameter).Return(tt.createUser.return1, tt.createUser.return2)
 			}
 			_, err := serviceTest.CreateUser(tt.req)
 			if !errors.Is(err, tt.want) {
@@ -227,7 +230,8 @@ func TestUpdateUser(t *testing.T) {
 	type updateUser struct {
 		expect    bool
 		parameter *models.User
-		return1   error
+		return1   *models.User
+		return2   error
 	}
 
 	test := []struct {
@@ -249,7 +253,8 @@ func TestUpdateUser(t *testing.T) {
 			updateUser: updateUser{
 				expect:    true,
 				parameter: user,
-				return1:   nil,
+				return1:   user,
+				return2:   nil,
 			},
 			want: nil,
 		},
@@ -279,7 +284,8 @@ func TestUpdateUser(t *testing.T) {
 			updateUser: updateUser{
 				expect:    true,
 				parameter: user,
-				return1:   derrors.New(derrors.KindUnexpected, messages.DBError),
+				return1:   nil,
+				return2:   derrors.New(derrors.KindUnexpected, messages.DBError),
 			},
 			want: derrors.New(derrors.KindUnexpected, messages.DBError),
 		},
@@ -291,7 +297,7 @@ func TestUpdateUser(t *testing.T) {
 				mockMainRepo.EXPECT().GetUserByID(tt.getUser.parameter).Return(tt.getUser.return1, tt.getUser.return2)
 			}
 			if tt.updateUser.expect {
-				mockMainRepo.EXPECT().UpdateUser(tt.updateUser.parameter).Return(tt.updateUser.return1)
+				mockMainRepo.EXPECT().UpdateUser(tt.updateUser.parameter).Return(tt.updateUser.return1, tt.updateUser.return2)
 			}
 			_, err := serviceTest.UpdateUser(tt.req)
 			if !errors.Is(err, tt.want) {
