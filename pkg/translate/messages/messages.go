@@ -12,5 +12,5 @@ const (
 
 	UserNotFound          = "UserNotFound"
 	InvalidUsernameLength = "InvalidUsernameLength"
-	InvalidPassword       = "InvalidPasswordLength"
+	InvalidPassword       = "InvalidPassword"
 )
