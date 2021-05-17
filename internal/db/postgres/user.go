@@ -8,6 +8,7 @@ import (
 	"github.com/kianooshaz/bookstore-api/pkg/translate/messages"
 )
 
+//CreateUser creates an user and wallet for this user on the database users and wallets tables
 func (r *repository) CreateUser(user *models.User) (*models.User, error) {
 	u := schema.ConvertUser(user)
 

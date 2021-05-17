@@ -20,7 +20,7 @@ var (
 	serviceTest  *service
 )
 
-func tearDownTest() {
+func teardownTest() {
 	mockCtrl.Finish()
 	mockCtrl = nil
 	serviceTest = nil
@@ -81,6 +81,7 @@ func newUserTest() *models.User {
 func newCreateUserRequestTest() *params.CreateUserRequest {
 	return &params.CreateUserRequest{
 		Username:              random.String(8),
+		Password:              random.String(10), // todo random password
 		FirstName:             random.String(8),
 		LastName:              random.String(8),
 		Email:                 random.String(5) + "@" + random.String(3) + "." + random.String(3),

@@ -10,7 +10,7 @@ import (
 
 func TestValidateUsername(t *testing.T) {
 	setupTest(t)
-	defer tearDownTest()
+	defer teardownTest()
 
 	test := []struct {
 		name     string
@@ -46,7 +46,7 @@ func TestValidateUsername(t *testing.T) {
 
 func TestValidatePassword(t *testing.T) {
 	setupTest(t)
-	defer tearDownTest()
+	defer teardownTest()
 
 	test := []struct {
 		name     string

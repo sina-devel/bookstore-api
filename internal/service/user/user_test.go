@@ -14,15 +14,17 @@ import (
 
 func TestCreateUser(t *testing.T) {
 	setupTest(t)
-	defer tearDownTest()
+	defer teardownTest()
 
 	req := newCreateUserRequestTest()
 	req2 := newCreateUserRequestTest()
 
+	req.Password = "Sdwlp$2dsa15&"
+
 	var password string
 	var err error
 	t.Run("hash password", func(t *testing.T) {
-		password, err = hash.Password("sdiKsdJ&@sd546")
+		password, err = hash.Password(req.Password)
 		if err != nil {
 			t.Fatal()
 		}
@@ -101,7 +103,7 @@ func TestCreateUser(t *testing.T) {
 
 func TestGetUserByID(t *testing.T) {
 	setupTest(t)
-	defer tearDownTest()
+	defer teardownTest()
 
 	user := newUserTest()
 	userID := uint(rand.Uint32())
@@ -158,7 +160,7 @@ func TestGetUserByID(t *testing.T) {
 
 func TestGetUserByUsername(t *testing.T) {
 	setupTest(t)
-	defer tearDownTest()
+	defer teardownTest()
 
 	user := newUserTest()
 	username := random.String(5)
@@ -215,7 +217,7 @@ func TestGetUserByUsername(t *testing.T) {
 
 func TestUpdateUser(t *testing.T) {
 	setupTest(t)
-	defer tearDownTest()
+	defer teardownTest()
 
 	user := newUserTest()
 	req := newUpdateUserRequestTest()
@@ -309,7 +311,7 @@ func TestUpdateUser(t *testing.T) {
 
 func TestDeleteUser(t *testing.T) {
 	setupTest(t)
-	defer tearDownTest()
+	defer teardownTest()
 
 	user := newUserTest()
 	userID := uint(rand.Uint32())
