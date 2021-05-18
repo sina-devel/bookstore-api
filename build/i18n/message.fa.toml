@@ -4,12 +4,15 @@ InvalidUserStatus = "وضعیت کاربر نامعتبر است"
 InvalidBookStatus = "وضعیت کتاب نامعتبر است"
 InvalidGender = "جنسیت نامعتبر است"
 InvalidRole = "نقش نامعتبر است"
+InvalidUsernameLength = "ظول نام کاربری نامعتبر است"
+InvalidPassword = "رمز عبور نامعتبر است"
 
 # general
 DBError = "خطایی وجود دارد"
 GeneralError = "خطایی وجود دارد"
+ParseQueryError = "خطای پارامترهای ورودی"
 
 # user
 UserNotFound = "کاربر مورد نظر یافت نشد"
-InvalidUsernameLength = "ظول نام کاربری نامعتبر است"
-InvalidPassword = "رمز عبور نامعتبر است"
+UsernameIsDuplicate = "نام کاربری تکراری است"
+UsernameOrPasswordIsIncorrect = "نام کاربری یا کلمه عبور اشتباه است"

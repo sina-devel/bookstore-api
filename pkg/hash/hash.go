@@ -2,23 +2,25 @@ package hash
 
 import (
 	"errors"
+	"github.com/kianooshaz/bookstore-api/pkg/derrors"
+	"github.com/kianooshaz/bookstore-api/pkg/translate/messages"
 	"golang.org/x/crypto/bcrypt"
 )
 
 func Password(password string) (string, error) {
-	bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.MinCost)
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	return string(bytes), err
 }
 
-func CheckPassword(password, hash string) bool {
+func CheckPassword(password, hash string) error {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
-	return err == nil
-}
+	if err != nil {
+		if errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
+			return derrors.New(derrors.KindInvalid, messages.UsernameOrPasswordIsIncorrect)
+		}
 
-func IsErrorInvalidPassword(err error) bool {
-	if errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
-		return true
+		return derrors.New(derrors.KindUnexpected, messages.GeneralError)
 	}
 
-	return false
+	return nil
 }

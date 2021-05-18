@@ -13,5 +13,6 @@ type (
 		GetUserByUsername(username string) (*models.User, error)
 		UpdateUser(user *models.User) (*models.User, error)
 		DeleteUser(user *models.User) error
+		IsUsernameExist(username string) (bool, error)
 	}
 )

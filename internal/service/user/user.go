@@ -2,6 +2,7 @@ package user
 
 import (
 	"github.com/kianooshaz/bookstore-api/internal/models"
+	"github.com/kianooshaz/bookstore-api/internal/models/types"
 	"github.com/kianooshaz/bookstore-api/internal/params"
 	"github.com/kianooshaz/bookstore-api/pkg/derrors"
 	"github.com/kianooshaz/bookstore-api/pkg/hash"
@@ -16,6 +17,22 @@ func (s *service) CreateUser(req *params.CreateUserRequest) (*models.User, error
 
 	if err := s.validatePassword(req.Password); err != nil {
 		return nil, err
+	}
+
+	ok, err := s.userRepo.IsUsernameExist(req.Username)
+	if err != nil {
+		return nil, err
+	}
+
+	if ok {
+		s.logger.Error(&log.Field{
+			Section:  "service.user",
+			Function: "CreateUser",
+			Params:   map[string]interface{}{"password": req.Password},
+			Message:  s.translator.TranslateEn(messages.UsernameIsDuplicate),
+		})
+
+		return nil, derrors.New(derrors.KindInvalid, messages.UsernameIsDuplicate)
 	}
 
 	password, err := hash.Password(req.Password)
@@ -41,6 +58,10 @@ func (s *service) CreateUser(req *params.CreateUserRequest) (*models.User, error
 		IsPhoneNumberVerified: req.IsPhoneNumberVerified,
 		Gender:                req.Gender,
 		Role:                  req.Role,
+		Wallet: models.Wallet{
+			Balance: 0,
+			Status:  types.WalletOpen,
+		},
 	}
 
 	user, err = s.userRepo.CreateUser(user)

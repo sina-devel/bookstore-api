@@ -64,3 +64,7 @@ func HttpError(err error) (string, int) {
 	return serverErr.message, code
 
 }
+
+func As(err error) bool {
+	return errors.As(err, &serverError{})
+}

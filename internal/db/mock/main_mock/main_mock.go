@@ -93,6 +93,21 @@ func (mr *MockMainRepositoryMockRecorder) GetUserByUsername(username interface{}
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUserByUsername", reflect.TypeOf((*MockMainRepository)(nil).GetUserByUsername), username)
 }
 
+// IsUsernameExist mocks base method.
+func (m *MockMainRepository) IsUsernameExist(username string) (bool, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "IsUsernameExist", username)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// IsUsernameExist indicates an expected call of IsUsernameExist.
+func (mr *MockMainRepositoryMockRecorder) IsUsernameExist(username interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IsUsernameExist", reflect.TypeOf((*MockMainRepository)(nil).IsUsernameExist), username)
+}
+
 // UpdateUser mocks base method.
 func (m *MockMainRepository) UpdateUser(user *models.User) (*models.User, error) {
 	m.ctrl.T.Helper()
@@ -188,6 +203,21 @@ func (m *MockUserRepository) GetUserByUsername(username string) (*models.User, e
 func (mr *MockUserRepositoryMockRecorder) GetUserByUsername(username interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUserByUsername", reflect.TypeOf((*MockUserRepository)(nil).GetUserByUsername), username)
+}
+
+// IsUsernameExist mocks base method.
+func (m *MockUserRepository) IsUsernameExist(username string) (bool, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "IsUsernameExist", username)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// IsUsernameExist indicates an expected call of IsUsernameExist.
+func (mr *MockUserRepositoryMockRecorder) IsUsernameExist(username interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IsUsernameExist", reflect.TypeOf((*MockUserRepository)(nil).IsUsernameExist), username)
 }
 
 // UpdateUser mocks base method.
