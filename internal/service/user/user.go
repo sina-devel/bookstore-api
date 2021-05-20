@@ -99,11 +99,8 @@ func (s *service) UpdateUser(req *params.UpdateUserRequest) (*models.User, error
 	user.FirstName = req.FirstName
 	user.LastName = req.LastName
 	user.Email = req.Email
-	user.IsEmailVerified = req.IsEmailVerified
 	user.PhoneNumber = req.PhoneNumber
-	user.IsPhoneNumberVerified = req.IsPhoneNumberVerified
 	user.Gender = req.Gender
-	user.Role = req.Role
 	user.Avatar = req.Avatar
 
 	user, err = s.userRepo.UpdateUser(user)

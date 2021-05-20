@@ -3,6 +3,7 @@ package config
 type (
 	Config struct {
 		Database Database `yaml:"database"`
+		Server   Server   `yaml:"server"`
 		I18n     I18n     `yaml:"i18n"`
 		Logger   Logger   `yaml:"logger"`
 		User     User     `yaml:"user"`
@@ -22,6 +23,10 @@ type (
 		TimeZone  string `yaml:"time_zone"`
 		Charset   string `yaml:"charset"`
 		Migration bool   `yaml:"migration"`
+	}
+
+	Server struct {
+		Port int `yaml:"port"`
 	}
 
 	I18n struct {

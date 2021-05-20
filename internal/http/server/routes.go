@@ -1,7 +1,8 @@
 package server
 
-import "github.com/labstack/echo/v4"
-
-func (s *httpServer) setRoutes(e *echo.Echo) {
-	e.POST("/user", s.handler.createUser)
+func (s *httpServer) setRoutes() {
+	s.admin.POST("/user", s.handler.adminCreateUser)
+	s.admin.GET("/user/:id", s.handler.adminGetUser)
+	s.admin.PATCH("/user", s.handler.adminUpdateUser)
+	s.admin.DELETE("/user/:id", s.handler.adminDeleteUser)
 }

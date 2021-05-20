@@ -2,6 +2,7 @@ package derrors
 
 import (
 	"errors"
+	"github.com/kianooshaz/bookstore-api/pkg/translate/messages"
 	"net/http"
 )
 
@@ -53,7 +54,7 @@ func HttpError(err error) (string, int) {
 
 	ok := errors.As(err, &serverErr)
 	if !ok {
-		return err.Error(), http.StatusBadRequest
+		return messages.GeneralError, http.StatusInternalServerError
 	}
 
 	code, ok := httpErrors[serverErr.kind]

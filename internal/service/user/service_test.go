@@ -95,14 +95,11 @@ func newCreateUserRequestTest() *params.CreateUserRequest {
 
 func newUpdateUserRequestTest() *params.UpdateUserRequest {
 	return &params.UpdateUserRequest{
-		FirstName:             random.String(8),
-		LastName:              random.String(8),
-		Email:                 random.String(5) + "@" + random.String(3) + "." + random.String(3),
-		IsEmailVerified:       true,
-		PhoneNumber:           "0912" + random.StringWithCharset(7, "0123456789"),
-		IsPhoneNumberVerified: true,
-		Gender:                types.Male,
-		Role:                  types.Basic,
-		Avatar:                random.String(5),
+		FirstName:   random.String(8),
+		LastName:    random.String(8),
+		Email:       random.String(5) + "@" + random.String(3) + "." + random.String(3),
+		PhoneNumber: "0912" + random.StringWithCharset(7, "0123456789"),
+		Gender:      types.Male,
+		Avatar:      random.String(5),
 	}
 }

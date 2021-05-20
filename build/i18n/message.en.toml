@@ -13,6 +13,6 @@ GeneralError = "error is exist"
 ParseQueryError = "parse query error"
 
 # user
-UserNotFound = "UserNotFound"
+UserNotFound = "user not found"
 UsernameIsDuplicate = "username is duplicate"
 UsernameOrPasswordIsIncorrect = "username or password is incorrect"

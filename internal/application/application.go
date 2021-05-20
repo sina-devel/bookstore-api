@@ -41,5 +41,5 @@ func Run(cfg *config.Config) error {
 	})
 	httpServer := server.NewHttpServer(handler)
 
-	return httpServer.Start(8083)
+	return httpServer.Start(cfg.Server.Port)
 }
