@@ -31,6 +31,7 @@ func NewHttpServer(h *handler) contract.HttpServer {
 
 	e.Use(middleware.Gzip())
 	e.Use(middleware.RequestID())
+	e.Use(middleware.Recover())
 
 	public := e.Group("")
 	admin := e.Group("/admin")
