@@ -132,8 +132,7 @@ func (r *repository) DeleteUser(user *models.User) error {
 func (r *repository) IsUsernameExist(username string) (bool, error) {
 	user := &schema.User{}
 
-	if err := r.db.Model(&schema.User{}).Where("username = ?", username).
-		First(user).Error; err != nil {
+	if err := r.db.Raw("select * from users where username = ?", username).Scan(user).Error; err != nil {
 
 		if isErrorNotFound(err) {
 			return false, nil
