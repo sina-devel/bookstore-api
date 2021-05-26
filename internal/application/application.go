@@ -4,6 +4,7 @@ import (
 	"github.com/kianooshaz/bookstore-api/internal/config"
 	"github.com/kianooshaz/bookstore-api/internal/db/postgres"
 	"github.com/kianooshaz/bookstore-api/internal/http/server"
+	"github.com/kianooshaz/bookstore-api/internal/service/auth"
 	"github.com/kianooshaz/bookstore-api/internal/service/user"
 	"github.com/kianooshaz/bookstore-api/pkg/log/logrus"
 	"github.com/kianooshaz/bookstore-api/pkg/translate/i18n"
@@ -31,7 +32,8 @@ func Run(cfg *config.Config) error {
 		return err
 	}
 
-	userService := user.New(cfg.User, mainRepository, logger, translator)
+	authService := auth.New(cfg.Auth, logger, translator)
+	userService := user.New(cfg.User, mainRepository, authService, logger, translator)
 
 	handler := server.NewHttpHandler(&server.HandlerFields{
 		Cfg:         cfg,

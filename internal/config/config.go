@@ -2,11 +2,18 @@ package config
 
 type (
 	Config struct {
+		Auth     Auth     `yaml:"auth"`
 		Database Database `yaml:"database"`
 		Server   Server   `yaml:"server"`
 		I18n     I18n     `yaml:"i18n"`
 		Logger   Logger   `yaml:"logger"`
 		User     User     `yaml:"user"`
+	}
+
+	Auth struct {
+		AccessExpirationInMinute  int    `yaml:"access_expiration_in_minute"`
+		RefreshExpirationInMinute int    `yaml:"refresh_expiration_in_minute"`
+		JWTSecret                 string `yaml:"jwt_secret"`
 	}
 
 	Database struct {

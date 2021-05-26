@@ -3,6 +3,7 @@ package server
 import (
 	"fmt"
 	"github.com/kianooshaz/bookstore-api/internal/contract"
+	"github.com/kianooshaz/bookstore-api/internal/models"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"net/http"
@@ -33,10 +34,21 @@ func NewHttpServer(h *handler) contract.HttpServer {
 	e.Use(middleware.RequestID())
 	e.Use(middleware.Recover())
 
+	jwtConfig := middleware.JWTConfig{
+		SigningKey: h.cfg.Auth.JWTSecret,
+		Claims:     models.Claim{},
+		ErrorHandler: func(err error) error {
+			return &echo.HTTPError{
+				Code:    http.StatusUnauthorized,
+				Message: http.StatusText(http.StatusUnauthorized),
+			}
+		},
+	}
+
 	public := e.Group("")
-	admin := e.Group("/admin")
-	seller := e.Group("/seller")
-	user := e.Group("/user")
+	admin := e.Group("/admin", middleware.JWTWithConfig(jwtConfig))
+	seller := e.Group("/seller", middleware.JWTWithConfig(jwtConfig))
+	user := e.Group("/user", middleware.JWTWithConfig(jwtConfig))
 
 	return &httpServer{
 		handler: h,
