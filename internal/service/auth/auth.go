@@ -12,7 +12,7 @@ import (
 func (s service) GenerateAccessToken(user *models.User) (string, error) {
 	accessExpirationTime := time.Now().Add(time.Duration(s.cfg.AccessExpirationInMinute) * time.Minute)
 
-	claim := models.Claim{
+	claims := models.Claims{
 		ID:          user.ID,
 		Username:    user.Username,
 		Email:       user.Email,
@@ -25,9 +25,9 @@ func (s service) GenerateAccessToken(user *models.User) (string, error) {
 		},
 	}
 
-	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claim)
+	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	accessToken, err := jwtToken.SignedString(s.cfg.JWTSecret)
+	accessToken, err := jwtToken.SignedString([]byte(s.cfg.JWTSecret))
 	if err != nil {
 		s.logger.Error(&log.Field{
 			Section:  "auth.auth",
@@ -45,7 +45,7 @@ func (s service) GenerateAccessToken(user *models.User) (string, error) {
 func (s service) GenerateRefreshToken(user *models.User) (string, error) {
 	refreshExpirationTime := time.Now().Add(time.Duration(s.cfg.RefreshExpirationInMinute) * time.Minute)
 
-	claim := models.Claim{
+	claims := models.Claims{
 		ID:          user.ID,
 		Username:    user.Username,
 		Email:       user.Email,
@@ -58,9 +58,9 @@ func (s service) GenerateRefreshToken(user *models.User) (string, error) {
 		},
 	}
 
-	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claim)
+	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	refreshToken, err := jwtToken.SignedString(s.cfg.JWTSecret)
+	refreshToken, err := jwtToken.SignedString([]byte(s.cfg.JWTSecret))
 	if err != nil {
 		s.logger.Error(&log.Field{
 			Section:  "auth.auth",
@@ -72,5 +72,13 @@ func (s service) GenerateRefreshToken(user *models.User) (string, error) {
 		return "", derrors.New(derrors.KindUnexpected, messages.GeneralError)
 	}
 
+	if err := s.authRepo.CreateToken(refreshToken, user.ID); err != nil {
+		return "", err
+	}
+
 	return refreshToken, nil
+}
+
+func (s service) RefreshTokenIsValid(token string, userID uint) (bool, error) {
+	return s.authRepo.TokenIsExistWithUserID(token, userID)
 }

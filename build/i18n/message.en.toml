@@ -6,11 +6,13 @@ InvalidGender = "invalid gender"
 InvalidRole = "invalid role"
 InvalidUsernameLength = "invalid username length"
 InvalidPassword = "invalid password"
+InvalidToken = "invalid token"
 
 # general
 DBError = "error is exist"
 GeneralError = "error is exist"
 ParseQueryError = "parse query error"
+NotPermission = "not have permission to access"
 
 # user
 UserNotFound = "user not found"

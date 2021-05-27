@@ -12,8 +12,8 @@ import (
 
 func (h *handler) adminCreateUser(c echo.Context) error {
 	lang := getLanguage(c)
-	req := new(params.CreateUserRequest)
 
+	req := new(params.CreateUserRequest)
 	if err := c.Bind(req); err != nil {
 		h.logger.Error(&log.Field{
 			Section:  "http.server",
@@ -74,8 +74,8 @@ func (h *handler) adminGetUser(c echo.Context) error {
 
 func (h *handler) adminUpdateUser(c echo.Context) error {
 	lang := getLanguage(c)
-	req := new(params.UpdateUserRequest)
 
+	req := new(params.UpdateUserRequest)
 	if err := c.Bind(req); err != nil {
 		h.logger.Error(&log.Field{
 			Section:  "http.server",

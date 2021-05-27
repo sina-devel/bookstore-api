@@ -15,6 +15,7 @@ func (r *repository) migration() error {
 		&schema.Category{},
 		&schema.Comment{},
 		&schema.Picture{},
+		&schema.Token{},
 	); err != nil {
 		r.logger.Error(&log.Field{
 			Section:  "postgres.migration",

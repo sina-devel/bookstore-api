@@ -25,4 +25,9 @@ type (
 		Gender      types.Gender `json:"gender"`
 		Avatar      string       `json:"avatar"`
 	}
+
+	LoginRequest struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
 )

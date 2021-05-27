@@ -32,7 +32,7 @@ func Run(cfg *config.Config) error {
 		return err
 	}
 
-	authService := auth.New(cfg.Auth, logger, translator)
+	authService := auth.New(cfg.Auth, mainRepository, logger, translator)
 	userService := user.New(cfg.User, mainRepository, authService, logger, translator)
 
 	handler := server.NewHttpHandler(&server.HandlerFields{

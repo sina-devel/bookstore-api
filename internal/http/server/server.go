@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/kianooshaz/bookstore-api/internal/contract"
 	"github.com/kianooshaz/bookstore-api/internal/models"
+	"github.com/kianooshaz/bookstore-api/internal/models/types"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"net/http"
@@ -35,9 +36,11 @@ func NewHttpServer(h *handler) contract.HttpServer {
 	e.Use(middleware.Recover())
 
 	jwtConfig := middleware.JWTConfig{
-		SigningKey: h.cfg.Auth.JWTSecret,
-		Claims:     models.Claim{},
+		SigningKey: []byte(h.cfg.Auth.JWTSecret),
+		Claims:     &models.Claims{},
 		ErrorHandler: func(err error) error {
+			fmt.Println(err)
+
 			return &echo.HTTPError{
 				Code:    http.StatusUnauthorized,
 				Message: http.StatusText(http.StatusUnauthorized),
@@ -46,8 +49,8 @@ func NewHttpServer(h *handler) contract.HttpServer {
 	}
 
 	public := e.Group("")
-	admin := e.Group("/admin", middleware.JWTWithConfig(jwtConfig))
-	seller := e.Group("/seller", middleware.JWTWithConfig(jwtConfig))
+	admin := e.Group("/admin", middleware.JWTWithConfig(jwtConfig), middlewarePermission(h, types.Admin, types.Manager))
+	seller := e.Group("/seller", middleware.JWTWithConfig(jwtConfig), middlewarePermission(h, types.Seller))
 	user := e.Group("/user", middleware.JWTWithConfig(jwtConfig))
 
 	return &httpServer{

@@ -18,6 +18,6 @@ type (
 		Gender                types.Gender `json:"gender"`
 		Role                  types.Role   `json:"role"`
 		Avatar                string       `json:"avatar"`
-		Wallet                Wallet       `json:"wallet"`
+		Wallet                Wallet       `json:"-"`
 	}
 )

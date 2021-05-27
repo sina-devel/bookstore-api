@@ -6,11 +6,13 @@ InvalidGender = "جنسیت نامعتبر است"
 InvalidRole = "نقش نامعتبر است"
 InvalidUsernameLength = "ظول نام کاربری نامعتبر است"
 InvalidPassword = "رمز عبور نامعتبر است"
+InvalidToken = "توکن نامعتبر است"
 
 # general
 DBError = "خطایی وجود دارد"
 GeneralError = "خطایی وجود دارد"
 ParseQueryError = "خطای پارامترهای ورودی"
+NotPermission = "اجازه دسترسی ندارید"
 
 # user
 UserNotFound = "کاربر مورد نظر یافت نشد"

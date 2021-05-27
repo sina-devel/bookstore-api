@@ -5,7 +5,7 @@ import (
 	"github.com/kianooshaz/bookstore-api/internal/models/types"
 )
 
-type Claim struct {
+type Claims struct {
 	ID          uint       `json:"id"`
 	Username    string     `json:"username"`
 	Email       string     `json:"email"`
