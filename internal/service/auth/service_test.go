@@ -1,7 +1,9 @@
 package auth
 
 import (
+	"github.com/golang/mock/gomock"
 	"github.com/kianooshaz/bookstore-api/internal/config"
+	"github.com/kianooshaz/bookstore-api/internal/db/mock/main_mock"
 	"github.com/kianooshaz/bookstore-api/internal/models"
 	"github.com/kianooshaz/bookstore-api/internal/models/types"
 	"github.com/kianooshaz/bookstore-api/pkg/log/logrus"
@@ -12,7 +14,9 @@ import (
 )
 
 var (
-	serviceTest *service
+	mockCtrl     *gomock.Controller
+	mockMainRepo *main_mock.MockMainRepository
+	serviceTest  *service
 )
 
 func setupTest(t *testing.T) {
@@ -38,14 +42,20 @@ func setupTest(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	mockCtrl = gomock.NewController(t)
+	mockMainRepo = main_mock.NewMockMainRepository(mockCtrl)
+
 	serviceTest = &service{
 		cfg:        cfg,
+		authRepo:   mockMainRepo,
 		logger:     logger,
 		translator: translator,
 	}
 }
 
 func teardownTest() {
+	mockCtrl.Finish()
+	mockCtrl = nil
 	serviceTest = nil
 }
 

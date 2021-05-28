@@ -56,7 +56,7 @@ func middlewarePermission(h *handler, roles ...types.Role) echo.MiddlewareFunc {
 			})
 
 			return &echo.HTTPError{
-				Code:    http.StatusBadRequest,
+				Code:    http.StatusForbidden,
 				Message: h.translator.Translate(lang, messages.NotPermission),
 			}
 		}
