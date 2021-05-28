@@ -34,10 +34,11 @@ func parseAcceptLanguage(acceptLanguages string) []langQ {
 	var lqs []langQ
 
 	languages := strings.Split(acceptLanguages, ",")
+
 	for _, language := range languages {
 		language = strings.Trim(language, " ")
-
 		langWithQ := strings.Split(language, ";")
+
 		if len(langWithQ) == 1 {
 			lq := langQ{langWithQ[0], 1}
 			lqs = append(lqs, lq)

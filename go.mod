@@ -5,19 +5,18 @@ go 1.16
 require (
 	github.com/BurntSushi/toml v0.3.1
 	github.com/alecthomas/units v0.0.0-20210208195552-ff826a37aa15
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/golang/mock v1.5.0
 	github.com/jackc/pgproto3/v2 v2.0.7 // indirect
 	github.com/jonboulle/clockwork v0.2.2 // indirect
 	github.com/kelseyhightower/envconfig v1.4.0
-	github.com/labstack/echo/v4 v4.3.0 // indirect
+	github.com/labstack/echo/v4 v4.3.0
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/lestrrat-go/strftime v1.0.4 // indirect
 	github.com/lib/pq v1.6.0 // indirect
 	github.com/nicksnyder/go-i18n/v2 v2.1.2
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/sirupsen/logrus v1.8.1
-	github.com/speps/go-hashids v2.0.0+incompatible // indirect
 	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/xhit/go-str2duration/v2 v2.0.0
 	golang.org/x/crypto v0.0.0-20210513164829-c07d793c2f9a

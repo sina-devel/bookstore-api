@@ -34,6 +34,20 @@ func (m *MockMainRepository) EXPECT() *MockMainRepositoryMockRecorder {
 	return m.recorder
 }
 
+// CreateToken mocks base method.
+func (m *MockMainRepository) CreateToken(token string, userID uint) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateToken", token, userID)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// CreateToken indicates an expected call of CreateToken.
+func (mr *MockMainRepositoryMockRecorder) CreateToken(token, userID interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateToken", reflect.TypeOf((*MockMainRepository)(nil).CreateToken), token, userID)
+}
+
 // CreateUser mocks base method.
 func (m *MockMainRepository) CreateUser(user *models.User) (*models.User, error) {
 	m.ctrl.T.Helper()
@@ -106,6 +120,21 @@ func (m *MockMainRepository) IsUsernameExist(username string) (bool, error) {
 func (mr *MockMainRepositoryMockRecorder) IsUsernameExist(username interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IsUsernameExist", reflect.TypeOf((*MockMainRepository)(nil).IsUsernameExist), username)
+}
+
+// TokenIsExistWithUserID mocks base method.
+func (m *MockMainRepository) TokenIsExistWithUserID(token string, userID uint) (bool, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "TokenIsExistWithUserID", token, userID)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TokenIsExistWithUserID indicates an expected call of TokenIsExistWithUserID.
+func (mr *MockMainRepositoryMockRecorder) TokenIsExistWithUserID(token, userID interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TokenIsExistWithUserID", reflect.TypeOf((*MockMainRepository)(nil).TokenIsExistWithUserID), token, userID)
 }
 
 // UpdateUser mocks base method.
@@ -233,4 +262,56 @@ func (m *MockUserRepository) UpdateUser(user *models.User) (*models.User, error)
 func (mr *MockUserRepositoryMockRecorder) UpdateUser(user interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateUser", reflect.TypeOf((*MockUserRepository)(nil).UpdateUser), user)
+}
+
+// MockAuthRepository is a mock of AuthRepository interface.
+type MockAuthRepository struct {
+	ctrl     *gomock.Controller
+	recorder *MockAuthRepositoryMockRecorder
+}
+
+// MockAuthRepositoryMockRecorder is the mock recorder for MockAuthRepository.
+type MockAuthRepositoryMockRecorder struct {
+	mock *MockAuthRepository
+}
+
+// NewMockAuthRepository creates a new mock instance.
+func NewMockAuthRepository(ctrl *gomock.Controller) *MockAuthRepository {
+	mock := &MockAuthRepository{ctrl: ctrl}
+	mock.recorder = &MockAuthRepositoryMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockAuthRepository) EXPECT() *MockAuthRepositoryMockRecorder {
+	return m.recorder
+}
+
+// CreateToken mocks base method.
+func (m *MockAuthRepository) CreateToken(token string, userID uint) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateToken", token, userID)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// CreateToken indicates an expected call of CreateToken.
+func (mr *MockAuthRepositoryMockRecorder) CreateToken(token, userID interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateToken", reflect.TypeOf((*MockAuthRepository)(nil).CreateToken), token, userID)
+}
+
+// TokenIsExistWithUserID mocks base method.
+func (m *MockAuthRepository) TokenIsExistWithUserID(token string, userID uint) (bool, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "TokenIsExistWithUserID", token, userID)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TokenIsExistWithUserID indicates an expected call of TokenIsExistWithUserID.
+func (mr *MockAuthRepositoryMockRecorder) TokenIsExistWithUserID(token, userID interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TokenIsExistWithUserID", reflect.TypeOf((*MockAuthRepository)(nil).TokenIsExistWithUserID), token, userID)
 }
